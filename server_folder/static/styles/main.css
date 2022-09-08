@@ -1,0 +1,73 @@
+body {
+    background-color: rgb(133, 133, 133);
+}
+
+.screen-container-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 4px;
+    position: relative;
+}
+
+.screen-container {
+    display: flex;
+    justify-content: center;
+    width: 910px;
+    height: 560px;
+    border: 5px solid black;
+}
+
+.screen {
+    width: 910px;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+}
+
+#up-button {
+    left: 45px;
+    position: relative;
+}
+
+#down-button {
+    position: relative;
+    top: 24px;
+    left: 36px;
+}
+
+#left-button {
+    position: relative;
+    left: 8px;
+    top: -21px;
+}
+
+#right-button {
+    position: relative;
+    right: -78px;
+    top: -43px;
+}
+
+.directional-button {
+    background-color: aliceblue;
+}
+
+.directional-button:hover {
+    border: 2px solid blue;
+    cursor: pointer;
+}
+
+.sprite {
+    width: 70px;
+    height: 70px;
+    position: relative;
+    z-index: 5;
+}
+
+.event {
+    width: 70px;
+    height: 70px;
+    position: relative;
+}
