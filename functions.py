@@ -61,9 +61,11 @@ def event_check(area_id, sprite_xy):
             elif event.event == 'left_exit':
                 area_y -= 1
                 result = find_new_area(event, area_x, area_y)
+                return result
             elif event.event == 'right_exit':
                 area_y += 1
                 result = find_new_area(event, area_x, area_y)
+                return result
 
     return 'no event'
 
