@@ -24,7 +24,7 @@ body {
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
-    
+
 }
 
 .controls {
@@ -75,4 +75,28 @@ body {
     width: 70px;
     height: 70px;
     position: relative;
+}
+
+.right_exit {
+    width: 70px;
+    height: 70px;
+    position: relative;   
+}
+
+.left_exit {
+    width: 70px;
+    height: 70px;
+    position: relative;   
+}
+
+.top_exit {
+    width: 70px;
+    height: 70px;
+    position: relative;   
+}
+
+.bottom_exit {
+    width: 70px;
+    height: 70px;
+    position: relative;   
 }

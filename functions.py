@@ -1,6 +1,7 @@
-from cgitb import reset
+import random
+
 from server_folder import db
-from server_folder.model import Event, Area
+from server_folder.model import Event, Area, Dinimon, Type
 
 def move_sprite(direction, left, top, sprite_xy):
     if direction == 'up':
@@ -33,14 +34,6 @@ def move_boundry(left, top):
     else:
         return 'success'
 
-# def exit_arrow_check(left, top):
-#     if left == 350 and top == 0:
-#         # return True
-#         return False
-#     else:
-#         return False
-
-
 
 def event_check(area_id, sprite_xy):
     area = Area.query.get(area_id)
@@ -48,7 +41,6 @@ def event_check(area_id, sprite_xy):
     area_x, area_y = split_area_coords(area.coordinates)
     print('PLAYER:',sprite_xy)
     for event in events:
-        print(event.xy)
         if event.xy == sprite_xy:
             if event.event == 'bottom_exit':
                 area_x -= 1
@@ -66,6 +58,8 @@ def event_check(area_id, sprite_xy):
                 area_y += 1
                 result = find_new_area(event, area_x, area_y)
                 return result
+            elif event.event == 'dinimon':
+                print('You found a dinimon!')
 
     return 'no event'
 
@@ -86,12 +80,33 @@ def spawn_events(area):
     return events
 
 
-# def area_check(area):
-#     if area == 'https://i.ytimg.com/vi/9TlmBmMonIc/maxresdefault.jpg':
-#         left = 350
-#         top = 420
-#         arrow_up_left = 420
-#         arrow_up_top = 0
+def spawn_dinimon(area):
+    biome = area.biome
+    all_dinimon = Dinimon.query.all()
+    area_spawners = Event.query.filter(Event.event == 'dinimon_spawn').all()
+    possible_dinimon = []
 
-#         return left, top, arrow_up_left, arrow_up_top
+    for spawner in area_spawners:
+        possible_dinimon.clear()
+        spawn_chance = random.randint(1,100)
+        if spawn_chance >= 10:
+            for dini in all_dinimon:
+                if biome in dini.biomes:
+                    for x in range(dini.rarity):
+                        possible_dinimon.append(dini)
+
+            dinimon = random.choice(possible_dinimon)
+
+            spawn_dinimon = Event(event='dinimon', area_id=spawner.area_id, left_coord=spawner.left_coord, top_coord=spawner.top_coord, xy=spawner.xy, image=dinimon.image, width=dinimon.width)
+
+            db.session.add(spawn_dinimon)
+
+    db.session.commit()
+
+
+
+
+
+
+
 

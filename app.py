@@ -1,5 +1,5 @@
 from server_folder import app, db
-from functions import move_sprite, spawn_events, event_check
+from functions import move_sprite, spawn_events, event_check, spawn_dinimon
 from server_folder.model import Area, Event
 
 from flask import redirect, render_template, request, url_for, session, flash
@@ -7,16 +7,23 @@ from flask import redirect, render_template, request, url_for, session, flash
 
 @app.route('/start_session')
 def start_session():
-    area = Area.query.get(2)
-    session["left"] = 0
-    session["top"] = 0
-    session["sprite_xy"] = 800
+
+    dinimon = Event.query.filter(Event.event == 'dinimon').all()
+    for dini in dinimon:
+        db.session.delete(dini)
+    db.session.commit()
+
+    area = Area.query.get(1)
+    session["left"] = 420
+    session["top"] = 70
+    session["sprite_xy"] = 706
 
     session["area"] = area.area_id
     session["arrow_up_left"] = 420
     session["arrow_up_top"] = 0
 
     events = spawn_events(area)
+    spawn_dinimon(area)
 
     return render_template('homepage.html', left=session["left"], top=session["top"], arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events)
 

@@ -5,7 +5,15 @@
     <img class="sprite" src="https://storage.cloud.google.com/property-runner/right-still.png" alt="Sprite" style="left:{{ left }}px;top:{{ top }}px;">
     
     {% for event in events %}
-    <img class="event", src="{{ event.image }}" alt="event" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;">
+
+    {% if event.event == 'dinimon_spawn' %}
+    <img class="{{ event.event }}", src="{{ event.image }}" alt="spawner" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;position: absolute;display:none">
+    {% elif event.event == 'dinimon' %}
+    <img class="{{ event.event }}", src="{{ event.image }}" alt="spawner" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;width:{{ event.width }}px;position: absolute;">
+    {% else %}
+    <img class="{{ event.event }}", src="{{ event.image }}" alt="event" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;">
+    {% endif %}
+    
     {% endfor %}
 
 

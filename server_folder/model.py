@@ -19,6 +19,7 @@ class Area(db.Model):
     def __repr__(self):
         return f"Area: {self.area_id} in {self.biome} at {self.coordinates}"
 
+
 class Event(db.Model):
     __tablename__ = 'events'
 
@@ -28,17 +29,41 @@ class Event(db.Model):
     left_coord = db.Column(db.Integer)
     top_coord = db.Column(db.Integer)
     xy = db.Column(db.Integer)
-    image = db.Column(db.String(255), nullable=False) 
+    image = db.Column(db.String(255), nullable=False)
+    width = db.Column(db.Integer, default=70) 
 
     def __repr__(self):
         return f"Event: {self.event} ({self.event_id}) in {self.area_id} at {self.left_coord} / {self.top_coord}"
 
-# class Area_Event(db.Model):
-#     __tablename__ = 'area_events'
 
-#     area_event_id = db.Column(db.Integer, primary_key=True)
-#     area_id = db.Column(db.Integer)
-#     event_id = db.Column(db.Integer) 
+class Type(db.Model):
+    __tablename__ = 'types'
+
+    type_id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(255), nullable=False)
+    super_effective = db.Column(db.String(255))
+    not_effective = db.Column(db.String(255))
+    vulnerable_to = db.Column(db.String(255))
+    resistant_to = db.Column(db.String(255))
+
+
+class Dinimon(db.Model):
+    __tablename__ = 'dinimon'
+
+    dinimon_id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.Integer)
+    name = db.Column(db.String(255), nullable=False)
+    width = db.Column(db.Integer, nullable=False)
+    image = db.Column(db.String(255), nullable=False)
+    type1 = db.Column(db.Integer, db.ForeignKey("types.type_id"))
+    type2 = db.Column(db.Integer, db.ForeignKey("types.type_id"))
+    line = db.Column(db.String(255), nullable=False)
+    can_evolve = db.Column(db.Boolean)
+    rarity = db.Column(db.Integer)
+    biomes = db.Column(db.String(255))
+    health_range = db.Column(db.String(255), nullable=False)
+    energy_range = db.Column(db.String(255), nullable=False)
+    possible_moves = db.Column(db.String(255), nullable=False)
 
 
 def connect_to_db(app):
