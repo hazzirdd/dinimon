@@ -5,7 +5,7 @@ from server_folder.model import Area, Event
 from flask import redirect, render_template, request, url_for, session, flash
 
 
-@app.route('/start_session')
+@app.route('/start_session', methods=['POST', 'DELETE', 'GET'])
 def start_session():
 
     dinimon = Event.query.filter(Event.event == 'dinimon').all()
@@ -72,18 +72,6 @@ def move():
         session["sprite_xy"] = 511
     else:
         pass
-
-
-
-
-    # if exit == True:
-    #     session["area"] = 'https://i.ytimg.com/vi/9TlmBmMonIc/maxresdefault.jpg'
-
-    #     left, top, arrow_up_left, arrow_up_top = area_check(area=session["area"])
-    #     session["left"] = left
-    #     session["top"] = top
-    #     session["arrow_up_left"] = arrow_up_left
-    #     session["arrow_up_top"] = arrow_up_top
 
     return redirect(url_for('homepage'))
 

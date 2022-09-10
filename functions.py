@@ -59,7 +59,9 @@ def event_check(area_id, sprite_xy):
                 result = find_new_area(event, area_x, area_y)
                 return result
             elif event.event == 'dinimon':
-                print('You found a dinimon!')
+                dinimon = Dinimon.query.filter(Dinimon.image == event.image).first()
+
+                print(f'You found a {dinimon.name}!')
 
     return 'no event'
 
@@ -91,10 +93,14 @@ def spawn_dinimon(area):
         spawn_chance = random.randint(1,100)
         if spawn_chance >= 10:
             for dini in all_dinimon:
-                if biome in dini.biomes:
+                if spawner.biome in dini.biomes:
                     for x in range(dini.rarity):
                         possible_dinimon.append(dini)
+                
+            # This loop is printing spawning multiple dinimon in one spot
 
+        if possible_dinimon:
+            print(possible_dinimon)
             dinimon = random.choice(possible_dinimon)
 
             spawn_dinimon = Event(event='dinimon', area_id=spawner.area_id, left_coord=spawner.left_coord, top_coord=spawner.top_coord, xy=spawner.xy, image=dinimon.image, width=dinimon.width)

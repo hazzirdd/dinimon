@@ -30,6 +30,7 @@ class Event(db.Model):
     top_coord = db.Column(db.Integer)
     xy = db.Column(db.Integer)
     image = db.Column(db.String(255), nullable=False)
+    biome = db.Column(db.String(255), default="Grasslands")
     width = db.Column(db.Integer, default=70) 
 
     def __repr__(self):
