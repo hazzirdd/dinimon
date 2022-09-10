@@ -9,7 +9,7 @@
     {% if event.event == 'dinimon_spawn' %}
     <img class="{{ event.event }}", src="{{ event.image }}" alt="spawner" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;position: absolute;display:none">
     {% elif event.event == 'dinimon' %}
-    <img class="{{ event.event }}", src="{{ event.image }}" alt="spawner" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;width:{{ event.width }}px;position: absolute;">
+    <img class="{{ event.event }}", src="{{ event.image }}" alt="{{ event.image }}" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;width:{{ event.width }}px;position: absolute;">
     {% else %}
     <img class="{{ event.event }}", src="{{ event.image }}" alt="event" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;">
     {% endif %}
