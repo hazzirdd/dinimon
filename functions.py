@@ -1,7 +1,7 @@
 import random
 
 from server_folder import db
-from server_folder.model import Event, Area, Dinimon, Type
+from server_folder.model import Event, Area, Dinimon, Type, Captured_Dinimon, Move
 
 def move_sprite(direction, left, top, sprite_xy):
     if direction == 'up':
@@ -62,6 +62,7 @@ def event_check(area_id, sprite_xy):
                 dinimon = Dinimon.query.filter(Dinimon.image == event.image).first()
 
                 print(f'You found a {dinimon.name}!')
+                return ['wild_battle', dinimon]
 
     return 'no event'
 
@@ -96,22 +97,38 @@ def spawn_dinimon(area):
                 if spawner.biome in dini.biomes:
                     for x in range(dini.rarity):
                         possible_dinimon.append(dini)
-                
-            # This loop is printing spawning multiple dinimon in one spot
 
         if possible_dinimon:
             dinimon = random.choice(possible_dinimon)
-
             spawn_dinimon = Event(event='dinimon', area_id=spawner.area_id, left_coord=spawner.left_coord, top_coord=spawner.top_coord, xy=spawner.xy, image=dinimon.image, width=dinimon.width)
-
             db.session.add(spawn_dinimon)
 
     db.session.commit()
 
 
+def get_party(player_id):
+    players_dinimon = Captured_Dinimon.query.filter(Captured_Dinimon.player_id == player_id).all()
+    party = []
+    for dinimon in players_dinimon:
+        if dinimon.in_party == True:
+            party.append(dinimon)
+    return party
 
 
-
-
-
-
+def setup_main_dini_moves(main_dini):
+    moves = []
+    print(main_dini, ", I CHOOSE YOU!!!")
+    if main_dini.move1 != 14:
+        move1 = Move.query.get(main_dini.move1)
+        moves.append(move1)
+    if main_dini.move2 != 14:
+        move2 = Move.query.get(main_dini.move2)
+        moves.append(move2)
+    if main_dini.move3 != 14:
+        move3 = Move.query.get(main_dini.move3)
+        moves.append(move3)
+    if main_dini.move4 != 14:
+        move4 = Move.query.get(main_dini.move4)
+        moves.append(move4)
+    return moves
+ 

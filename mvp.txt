@@ -1,0 +1,1 @@
+-Add 'objects' to the event table. Objects act as walls you cant go past. Bolders, walls, rivers ect.

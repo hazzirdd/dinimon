@@ -1,6 +1,6 @@
 from server_folder import app, db
-from functions import move_sprite, spawn_events, event_check, spawn_dinimon
-from server_folder.model import Area, Event
+from server_folder.model import Area, Captured_Dinimon, Event, Dinimon
+from functions import move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_main_dini_moves
 
 from flask import redirect, render_template, request, url_for, session, flash
 
@@ -14,6 +14,7 @@ def start_session():
     db.session.commit()
 
     area = Area.query.get(1)
+    session["player_id"] = 1
     session["left"] = 420
     session["top"] = 70
     session["sprite_xy"] = 706
@@ -21,19 +22,42 @@ def start_session():
     session["area"] = area.area_id
     session["arrow_up_left"] = 420
     session["arrow_up_top"] = 0
+    session.pop("wild_battle", None)
+    session.pop("main_dini", None)
 
-    events = spawn_events(area)
     spawn_dinimon(area)
 
-    return render_template('homepage.html', left=session["left"], top=session["top"], arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events)
+    return redirect(url_for('homepage'))
+
+
 
 @app.route('/')
 def homepage():
 
     area = Area.query.get(session["area"])
     events = spawn_events(area)
+    party = get_party(session["player_id"])
 
-    return render_template('homepage.html', left=session["left"], top=session["top"],arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events)
+    if 'wild_battle' in session:
+        dinimon = Dinimon.query.get(session["wild_battle"])
+        wild_battle = dinimon
+    else:
+        wild_battle = 'none'
+
+    if 'main_dini' in session:
+        main_dini = Captured_Dinimon.query.get(session["main_dini"])
+        print('MAIN DINI:', main_dini)
+        moves = setup_main_dini_moves(main_dini)
+        print(moves[0].move)
+
+    else:
+        main_dini = 'none'
+        moves = 'none'
+
+
+    return render_template('homepage.html', left=session["left"], top=session["top"],arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events, wild_battle=wild_battle, party=party, main_dini=main_dini, moves=moves)
+
+
 
 @app.route('/move', methods=['POST'])
 def move():
@@ -70,8 +94,22 @@ def move():
         session["left"] = 770
         session["top"] = 210
         session["sprite_xy"] = 511
+    elif event[0] == 'wild_battle':
+        session["wild_battle"] =  event[1].dinimon_id
+        print('Battle with:::', event[1].name)
     else:
         pass
+
+    return redirect(url_for('homepage'))
+
+
+
+@app.route('/choose_main_dini', methods=['GET', 'POST'])
+def choose_main_dini():
+    
+    dinimon_id = request.form['dinimon']
+    session["main_dini"] = dinimon_id
+    print("DINI ID:",dinimon_id)
 
     return redirect(url_for('homepage'))
 

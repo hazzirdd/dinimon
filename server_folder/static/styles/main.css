@@ -24,7 +24,45 @@ body {
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+}
 
+.battle_page {
+    width: 100%;
+    height: 100%;
+    background-image: url('https://images.squarespace-cdn.com/content/v1/594d574abe6594333aa767d8/1584850241889-58TKFREHAN9D09KG1WYB/red-dark.jpg?format=2500w');
+    position: absolute;
+    top: 0px;
+}
+
+.battle_bottom_banner {
+    width: 100%;
+    background-color: cornflowerblue;
+    position: relative;
+    top: 463px;
+    height: 96px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choose_party_member_button {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    position: relative;
+}
+
+.choose_party_member_button:hover {
+    color: rgb(1, 107, 200);
+    cursor: pointer;
+}
+
+.enemy_dinimon {
+    left: 598px;
+    top: 44px;
+    width: 186px;
+    transform: scaleX(-1);
+    position: absolute;
 }
 
 .controls {
