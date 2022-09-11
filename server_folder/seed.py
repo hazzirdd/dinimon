@@ -1,5 +1,5 @@
 from turtle import right
-from model import connect_to_db, db, Area, Event, Type, Dinimon, Player, Captured_Dinimon, Move
+from model import connect_to_db, db, Area, Event, Type, Dinimon, Player, Captured_Dinimon, Move, Enemy_Dinimon
 
 top_exit = "https://storage.cloud.google.com/property-runner/Dinimon/top_exit.png"
 left_exit = "https://storage.cloud.google.com/property-runner/Dinimon/left_exit.png"
@@ -285,174 +285,174 @@ def create_dinimon():
     print('Dinimon')
     Dinimon.query.delete()
 
-    dinimon_1 = Dinimon(number=1, name='Sunbun', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Sunbun.png', type1=1, type2=14, line='Sunbun', can_evolve=True, rarity=20, biomes='Grasslands/Desert', health_range='45-60', energy_range='10-15', possible_moves='Bright Attack')
+    dinimon_1 = Dinimon(number=1, name='Sunbun', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Sunbun.png', type1=1, type2=14, line='Sunbun', can_evolve=True, rarity=20, biomes='Grasslands/Desert', health_range='45-60', energy_range='10-15', possible_moves='Bright Attack/Familiar Attack')
 
-    dinimon_2 = Dinimon(number=2, name='Shinebun', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shinebun.png', type1=1, type2=14, line='Sunbun', can_evolve=True, rarity=6, biomes='Grasslands/Desert', health_range='50-85', energy_range='10-15', possible_moves='Bright Attack')
+    dinimon_2 = Dinimon(number=2, name='Shinebun', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shinebun.png', type1=1, type2=14, line='Sunbun', can_evolve=True, rarity=6, biomes='Grasslands/Desert', health_range='50-85', energy_range='10-15', possible_moves='Bright Attack/')
 
-    dinimon_3 = Dinimon(number=3, name='Brightbun', width=69, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Brightbun.png', type1=1, type2=14, line='Sunbun', can_evolve=False, rarity=3, biomes='Grasslands/Desert', health_range='85-95', energy_range='10-15', possible_moves='Bright Attack')
+    dinimon_3 = Dinimon(number=3, name='Brightbun', width=69, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Brightbun.png', type1=1, type2=14, line='Sunbun', can_evolve=False, rarity=3, biomes='Grasslands/Desert', health_range='85-95', energy_range='10-15', possible_moves='Bright Attack/')
 
-    dinimon_4 = Dinimon(number=4, name='Cubbit', width=15, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Cubbit.png', type1=2, type2=14, line='Cubbit', can_evolve=True, rarity=14, biomes='Snow', health_range='50', energy_range='10-15', possible_moves='Cold Attack')
+    dinimon_4 = Dinimon(number=4, name='Cubbit', width=15, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Cubbit.png', type1=2, type2=14, line='Cubbit', can_evolve=True, rarity=14, biomes='Snow', health_range='50', energy_range='10-15', possible_moves='Cold Attack/')
 
-    dinimon_5 = Dinimon(number=5, name='Froggo', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Froggo.png', type1=2, type2=14, line='Cubbit', can_evolve=True, rarity=10, biomes='Snow', health_range='50', energy_range='10-15', possible_moves='Cold Attack')
+    dinimon_5 = Dinimon(number=5, name='Froggo', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Froggo.png', type1=2, type2=14, line='Cubbit', can_evolve=True, rarity=10, biomes='Snow', health_range='50', energy_range='10-15', possible_moves='Cold Attack/')
 
-    dinimon_6 = Dinimon(number=6, name='Froaking', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Froaking.png', type1=2, type2=14, line='Cubbit', can_evolve=False, rarity=3, biomes='Snow', health_range='50', energy_range='10-15', possible_moves='Cold Attack')
+    dinimon_6 = Dinimon(number=6, name='Froaking', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Froaking.png', type1=2, type2=14, line='Cubbit', can_evolve=False, rarity=3, biomes='Snow', health_range='50', energy_range='10-15', possible_moves='Cold Attack/')
 
-    dinimon_7 = Dinimon(number=7, name='Rockball', width=45, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Rockball.png', type1=7, type2=14, line='Rockball', can_evolve=True, rarity=16, biomes='Grasslands/Desert/Mountain', health_range='50', energy_range='10-15', possible_moves='Earth Attack')
+    dinimon_7 = Dinimon(number=7, name='Rockball', width=45, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Rockball.png', type1=7, type2=14, line='Rockball', can_evolve=True, rarity=16, biomes='Grasslands/Desert/Mountain', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
-    dinimon_8 = Dinimon(number=8, name='Ballrock', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Ballrock.png', type1=7, type2=14, line='Rockball', can_evolve=True, rarity=6, biomes='Grasslands/Desert/Mountain', health_range='50', energy_range='10-15', possible_moves='Earth Attack')
+    dinimon_8 = Dinimon(number=8, name='Ballrock', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Ballrock.png', type1=7, type2=14, line='Rockball', can_evolve=True, rarity=6, biomes='Grasslands/Desert/Mountain', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
     
-    dinimon_9 = Dinimon(number=9, name='Riprock', width=65, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Ruprock.png', type1=7, type2=14, line='Rockball', can_evolve=False, rarity=3, biomes='Mountain', health_range='50', energy_range='10-15', possible_moves='Earth Attack')
+    dinimon_9 = Dinimon(number=9, name='Riprock', width=65, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Ruprock.png', type1=7, type2=14, line='Rockball', can_evolve=False, rarity=3, biomes='Mountain', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
-    dinimon_10 = Dinimon(number=10, name='Spitlick', width=55, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Spitlick.png', type1=5, type2=14, line='Spitlick', can_evolve=True, rarity=15, biomes='Grasslands/Swamp/Beach/Jungle', health_range='50', energy_range='10-15', possible_moves='Water Attack')
+    dinimon_10 = Dinimon(number=10, name='Spitlick', width=55, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Spitlick.png', type1=5, type2=14, line='Spitlick', can_evolve=True, rarity=15, biomes='Grasslands/Swamp/Beach/Jungle', health_range='50', energy_range='10-15', possible_moves='Water Attack/')
 
-    dinimon_11 = Dinimon(number=11, name='Spitbo', width=85, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Spitbo.png', type1=5, type2=14, line='Spitlick', can_evolve=True, rarity=7, biomes='Grasslands/Swamp/Beach/Jungle', health_range='50', energy_range='10-15', possible_moves='Water Attack')
+    dinimon_11 = Dinimon(number=11, name='Spitbo', width=85, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Spitbo.png', type1=5, type2=14, line='Spitlick', can_evolve=True, rarity=7, biomes='Grasslands/Swamp/Beach/Jungle', health_range='50', energy_range='10-15', possible_moves='Water Attack/')
 
-    dinimon_12 = Dinimon(number=12, name='Salivamus', width=115, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Salivamus.png', type1=5, type2=14, line='Spitlick', can_evolve=False, rarity=3, biomes='Grasslands/Beach/Swamp/Jungle', health_range='50', energy_range='10-15', possible_moves='Water Attack')
+    dinimon_12 = Dinimon(number=12, name='Salivamus', width=115, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Salivamus.png', type1=5, type2=14, line='Spitlick', can_evolve=False, rarity=3, biomes='Grasslands/Beach/Swamp/Jungle', health_range='50', energy_range='10-15', possible_moves='Water Attack/')
 
-    dinimon_13 = Dinimon(number=13, name='Noose', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Noose.png', type1=3, type2=4, line='Noose', can_evolve=True, rarity=13, biomes='Desert', health_range='50', energy_range='10-15', possible_moves='Shadow Attack')
+    dinimon_13 = Dinimon(number=13, name='Noose', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Noose.png', type1=3, type2=4, line='Noose', can_evolve=True, rarity=13, biomes='Desert', health_range='50', energy_range='10-15', possible_moves='Shadow Attack/')
 
-    dinimon_14 = Dinimon(number=14, name='Wrapparition', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Wrapparition.png', type1=3, type2=4, line='Noose', can_evolve=True, rarity=3, biomes='Desert', health_range='50', energy_range='10-15', possible_moves='Shadow Attack')
+    dinimon_14 = Dinimon(number=14, name='Wrapparition', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Wrapparition.png', type1=3, type2=4, line='Noose', can_evolve=True, rarity=3, biomes='Desert', health_range='50', energy_range='10-15', possible_moves='Shadow Attack/')
 
-    dinimon_15 = Dinimon(number=15, name='Knotaliss', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Knotaliss.png', type1=3, type2=4, line='Noose', can_evolve=False, rarity=1, biomes='Desert', health_range='50', energy_range='10-15', possible_moves='Shadow Attack')
+    dinimon_15 = Dinimon(number=15, name='Knotaliss', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Knotaliss.png', type1=3, type2=4, line='Noose', can_evolve=False, rarity=1, biomes='Desert', health_range='50', energy_range='10-15', possible_moves='Shadow Attack/')
 
-    dinimon_16 = Dinimon(number=16, name='Shaydlet', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shaydlet.png', type1=3, type2=14, line='Shaydlet', can_evolve=True, rarity=15, biomes='Grasslands/Mountain/Desert/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack')
+    dinimon_16 = Dinimon(number=16, name='Shaydlet', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shaydlet.png', type1=3, type2=14, line='Shaydlet', can_evolve=True, rarity=15, biomes='Grasslands/Mountain/Desert/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack/')
 
-    dinimon_17 = Dinimon(number=17, name='Shaydark', width=65, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shaydark.png', type1=3, type2=14, line='Shaydlet', can_evolve=True, rarity=7, biomes='Grasslands/Mountain/Desert/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack')
+    dinimon_17 = Dinimon(number=17, name='Shaydark', width=65, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shaydark.png', type1=3, type2=14, line='Shaydlet', can_evolve=True, rarity=7, biomes='Grasslands/Mountain/Desert/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack/')
 
-    dinimon_18 = Dinimon(number=18, name='Shayddler', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shayddler.png', type1=3, type2=14, line='Shadlet', can_evolve=False, rarity=3, biomes='Mountain/Desert/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack')
+    dinimon_18 = Dinimon(number=18, name='Shayddler', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shayddler.png', type1=3, type2=14, line='Shadlet', can_evolve=False, rarity=3, biomes='Mountain/Desert/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack/')
 
-    dinimon_19 = Dinimon(number=19, name='Beak Beak', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Beak Beak.png', type1=4, type2=14, line='Beak Beak', can_evolve=True, rarity=18, biomes='Grasslands/Mountain/Beach/Jungle', health_range='50', energy_range='10-15', possible_moves='Air Attack')
+    dinimon_19 = Dinimon(number=19, name='Beak Beak', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Beak Beak.png', type1=4, type2=14, line='Beak Beak', can_evolve=True, rarity=18, biomes='Grasslands/Mountain/Beach/Jungle', health_range='50', energy_range='10-15', possible_moves='Air Attack/')
 
-    dinimon_20 = Dinimon(number=20, name='Beakwing', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Beakwing.png', type1=4, type2=14, line='Beak Beak', can_evolve=True, rarity=7, biomes='Grasslands/Mountain/Beach/Jungle', health_range='50', energy_range='10-15', possible_moves='Air Attack')
+    dinimon_20 = Dinimon(number=20, name='Beakwing', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Beakwing.png', type1=4, type2=14, line='Beak Beak', can_evolve=True, rarity=7, biomes='Grasslands/Mountain/Beach/Jungle', health_range='50', energy_range='10-15', possible_moves='Air Attack/')
 
-    dinimon_21 = Dinimon(number=21, name='Quetzabeak', width=150, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Quetzabeak.png', type1=4, type2=14, line='Beak Beak', can_evolve=False, rarity=3, biomes='Jungle/Mountain/Peaks', health_range='50', energy_range='10-15', possible_moves='Air Attack')
+    dinimon_21 = Dinimon(number=21, name='Quetzabeak', width=150, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Quetzabeak.png', type1=4, type2=14, line='Beak Beak', can_evolve=False, rarity=3, biomes='Jungle/Mountain/Peaks', health_range='50', energy_range='10-15', possible_moves='Air Attack/')
 
-    dinimon_22 = Dinimon(number=22, name='Buzzmouse', width=22, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Buzzmouse.png', type1=6, type2=14, line='Buzzmouse', can_evolve=True, rarity=16, biomes='Grasslands/Desert', health_range='50', energy_range='10-15', possible_moves='Electric Attack')
+    dinimon_22 = Dinimon(number=22, name='Buzzmouse', width=22, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Buzzmouse.png', type1=6, type2=14, line='Buzzmouse', can_evolve=True, rarity=16, biomes='Grasslands/Desert', health_range='50', energy_range='10-15', possible_moves='Electric Attack/')
 
-    dinimon_23 = Dinimon(number=23, name='Stratic', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Stratic.png', type1=6, type2=14, line='Buzzmouse', can_evolve=True, rarity=7, biomes='Grasslands/Desert', health_range='50', energy_range='10-15', possible_moves='Electric Attack')
+    dinimon_23 = Dinimon(number=23, name='Stratic', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Stratic.png', type1=6, type2=14, line='Buzzmouse', can_evolve=True, rarity=7, biomes='Grasslands/Desert', health_range='50', energy_range='10-15', possible_moves='Electric Attack/')
 
-    dinimon_24 = Dinimon(number=24, name='Statratic', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Statratic.png', type1=6, type2=14, line='Buzzmouse', can_evolve=False, rarity=3, biomes='Grasslands/Desert', health_range='50', energy_range='10-15', possible_moves='Electric Attack')
+    dinimon_24 = Dinimon(number=24, name='Statratic', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Statratic.png', type1=6, type2=14, line='Buzzmouse', can_evolve=False, rarity=3, biomes='Grasslands/Desert', health_range='50', energy_range='10-15', possible_moves='Electric Attack/')
 
-    dinimon_25 = Dinimon(number=25, name='Enchantling', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Enchantling.png', type1=12, type2=14, line='Enchantling', can_evolve=True, rarity=6, biomes='Grasslands/Jungle', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_25 = Dinimon(number=25, name='Enchantling', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Enchantling.png', type1=12, type2=14, line='Enchantling', can_evolve=True, rarity=6, biomes='Grasslands/Jungle', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_26 = Dinimon(number=26, name='Magic Shell', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Magic Shell.png', type1=12, type2=14, line='Enchantling', can_evolve=True, rarity=2, biomes='Jungle', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_26 = Dinimon(number=26, name='Magic Shell', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Magic Shell.png', type1=12, type2=14, line='Enchantling', can_evolve=True, rarity=2, biomes='Jungle', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_27 = Dinimon(number=27, name='Tortanic', width=115, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tortanic.png', type1=12, type2=11, line='Enchantling', can_evolve=False, rarity=1, biomes='Jungle', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_27 = Dinimon(number=27, name='Tortanic', width=115, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tortanic.png', type1=12, type2=11, line='Enchantling', can_evolve=False, rarity=1, biomes='Jungle', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_28 = Dinimon(number=28, name='BimBim', width=34, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/BimBim.png', type1=12, type2=14, line='BimBim', can_evolve=True, rarity=17, biomes='Grasslands/Mountain', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_28 = Dinimon(number=28, name='BimBim', width=34, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/BimBim.png', type1=12, type2=14, line='BimBim', can_evolve=True, rarity=17, biomes='Grasslands/Mountain', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_29 = Dinimon(number=29, name='BimBam', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Bimbam.png', type1=12, type2=14, line='BimBim', can_evolve=True, rarity=6, biomes='Grasslands/Mountain', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_29 = Dinimon(number=29, name='BimBam', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Bimbam.png', type1=12, type2=14, line='BimBim', can_evolve=True, rarity=6, biomes='Grasslands/Mountain', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_30 = Dinimon(number=30, name='BlamSlam', width=55, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Blamslam.png', type1=12, type2=14, line='BimBim', can_evolve=False, rarity=3, biomes='Grasslands/Mountain', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_30 = Dinimon(number=30, name='BlamSlam', width=55, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Blamslam.png', type1=12, type2=14, line='BimBim', can_evolve=False, rarity=3, biomes='Grasslands/Mountain', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_31 = Dinimon(number=31, name='Tulil', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tulil.png', type1=8, type2=14, line='Tulil', can_evolve=True, rarity=15, biomes='Grasslands/Jungle', health_range='50', energy_range='10-15', possible_moves='Growth Attack')
+    dinimon_31 = Dinimon(number=31, name='Tulil', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tulil.png', type1=8, type2=14, line='Tulil', can_evolve=True, rarity=15, biomes='Grasslands/Jungle', health_range='50', energy_range='10-15', possible_moves='Growth Attack/')
 
-    dinimon_32 = Dinimon(number=32, name='Tuking', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tuking.png', type1=8, type2=14, line='Tulil', can_evolve=True, rarity=6, biomes='Grasslands/Jungle', health_range='50', energy_range='10-15', possible_moves='Growth Attack')
+    dinimon_32 = Dinimon(number=32, name='Tuking', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tuking.png', type1=8, type2=14, line='Tulil', can_evolve=True, rarity=6, biomes='Grasslands/Jungle', health_range='50', energy_range='10-15', possible_moves='Growth Attack/')
 
-    dinimon_33 = Dinimon(number=33, name='Tutwine', width=75, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tutwine.png', type1=8, type2=14, line='Tulil', can_evolve=False, rarity=3, biomes='Jungle', health_range='50', energy_range='10-15', possible_moves='Growth Attack')
+    dinimon_33 = Dinimon(number=33, name='Tutwine', width=75, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tutwine.png', type1=8, type2=14, line='Tulil', can_evolve=False, rarity=3, biomes='Jungle', health_range='50', energy_range='10-15', possible_moves='Growth Attack/')
 
-    dinimon_34 = Dinimon(number=34, name='Stickmatch', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Stickmatch.png', type1=12, type2=14, line='Stickmatch', can_evolve=True, rarity=15, biomes='Mountain/Cave', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_34 = Dinimon(number=34, name='Stickmatch', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Stickmatch.png', type1=12, type2=14, line='Stickmatch', can_evolve=True, rarity=15, biomes='Mountain/Cave', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_35 = Dinimon(number=35, name='Strikematch', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Strikematch.png', type1=12, type2=14, line='Stickmatch', can_evolve=True, rarity=6, biomes='Mountain/Cave', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_35 = Dinimon(number=35, name='Strikematch', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Strikematch.png', type1=12, type2=14, line='Stickmatch', can_evolve=True, rarity=6, biomes='Mountain/Cave', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_36 = Dinimon(number=36, name='Stranglematch', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Stranglematch.png', type1=12, type2=14, line='Stickmatch', can_evolve=False, rarity=3, biomes='Mountain/Cave', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_36 = Dinimon(number=36, name='Stranglematch', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Stranglematch.png', type1=12, type2=14, line='Stickmatch', can_evolve=False, rarity=3, biomes='Mountain/Cave', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_37 = Dinimon(number=37, name='Salaburn', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Salaburn.png', type1=9, type2=14, line='Salaburn', can_evolve=True, rarity=15, biomes='Grasslands/Mesa/Cave/Volcano', health_range='50', energy_range='10-15', possible_moves='Burning Attack')
+    dinimon_37 = Dinimon(number=37, name='Salaburn', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Salaburn.png', type1=9, type2=14, line='Salaburn', can_evolve=True, rarity=15, biomes='Grasslands/Mesa/Cave/Volcano', health_range='50', energy_range='10-15', possible_moves='Burning Attack/')
 
-    dinimon_38 = Dinimon(number=38, name='Baskisinge', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Baskisinge.png', type1=9, type2=14, line='Salaburn', can_evolve=True, rarity=5, biomes='Grasslands/Mesa/Cave/Volcano', health_range='50', energy_range='10-15', possible_moves='Burning Attack')
+    dinimon_38 = Dinimon(number=38, name='Baskisinge', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Baskisinge.png', type1=9, type2=14, line='Salaburn', can_evolve=True, rarity=5, biomes='Grasslands/Mesa/Cave/Volcano', health_range='50', energy_range='10-15', possible_moves='Burning Attack/')
 
-    dinimon_39 = Dinimon(number=39, name='Fareodo', width=100, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Flareodo.png', type1=9, type2=14, line='Salaburn', can_evolve=False, rarity=2, biomes='Grasslands/Mesa/Cave/Volcano', health_range='50', energy_range='10-15', possible_moves='Burning Attack')
+    dinimon_39 = Dinimon(number=39, name='Fareodo', width=100, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Flareodo.png', type1=9, type2=14, line='Salaburn', can_evolve=False, rarity=2, biomes='Grasslands/Mesa/Cave/Volcano', health_range='50', energy_range='10-15', possible_moves='Burning Attack/')
 
-    dinimon_40 = Dinimon(number=40, name='Swiron', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Swiron.png', type1=10, type2=14, line='Swiron', can_evolve=True, rarity=15, biomes='Grasslands/Mountain/Jungle/Swamp', health_range='50', energy_range='10-15', possible_moves='Metal Attack')
+    dinimon_40 = Dinimon(number=40, name='Swiron', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Swiron.png', type1=10, type2=14, line='Swiron', can_evolve=True, rarity=15, biomes='Grasslands/Mountain/Jungle/Swamp', health_range='50', energy_range='10-15', possible_moves='Metal Attack/')
 
-    dinimon_41 = Dinimon(number=41, name='Glintpig', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Glintpig.png', type1=10, type2=14, line='Swiron', can_evolve=True, rarity=5, biomes='Grasslands/Mountain/Jungle/Swamp', health_range='50', energy_range='10-15', possible_moves='Metal Attack')
+    dinimon_41 = Dinimon(number=41, name='Glintpig', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Glintpig.png', type1=10, type2=14, line='Swiron', can_evolve=True, rarity=5, biomes='Grasslands/Mountain/Jungle/Swamp', health_range='50', energy_range='10-15', possible_moves='Metal Attack/')
 
-    dinimon_42 = Dinimon(number=42, name='Metaboar', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Metaboar.png', type1=10, type2=14, line='Swiron', can_evolve=False, rarity=2, biomes='Grasslands/Mountain/Swamp/Jungle', health_range='50', energy_range='10-15', possible_moves='Metal Attack')
+    dinimon_42 = Dinimon(number=42, name='Metaboar', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Metaboar.png', type1=10, type2=14, line='Swiron', can_evolve=False, rarity=2, biomes='Grasslands/Mountain/Swamp/Jungle', health_range='50', energy_range='10-15', possible_moves='Metal Attack/')
 
-    dinimon_43 = Dinimon(number=43, name='Biosludge', width=45, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Biosludge.png', type1=13, type2=14, line='Biosludge', can_evolve=True, rarity=16, biomes='Grasslands/Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack')
+    dinimon_43 = Dinimon(number=43, name='Biosludge', width=45, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Biosludge.png', type1=13, type2=14, line='Biosludge', can_evolve=True, rarity=16, biomes='Grasslands/Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack/')
 
-    dinimon_44 = Dinimon(number=44, name='Quagunk', width=75, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Quagunk.png', type1=13, type2=14, line='Biosludge', can_evolve=True, rarity=6, biomes='Grasslands/Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack')
+    dinimon_44 = Dinimon(number=44, name='Quagunk', width=95, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Quagunk.png', type1=13, type2=14, line='Biosludge', can_evolve=True, rarity=6, biomes='Grasslands/Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack/')
 
-    dinimon_45 = Dinimon(number=45, name='Heximuck', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Heximuck.png', type1=13, type2=14, line='Biosludge', can_evolve=False, rarity=3, biomes='Grasslands/Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack')
+    dinimon_45 = Dinimon(number=45, name='Heximuck', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Heximuck.png', type1=13, type2=14, line='Biosludge', can_evolve=False, rarity=3, biomes='Grasslands/Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack/')
     
-    dinimon_46 = Dinimon(number=46, name='Patty', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Patty.png', type1=12, type2=14, line='Patty', can_evolve=True, rarity=10, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_46 = Dinimon(number=46, name='Patty', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Patty.png', type1=12, type2=14, line='Patty', can_evolve=True, rarity=10, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_47 = Dinimon(number=47, name='Dubpatty', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Dubpatty.png', type1=12, type2=14, line='Patty', can_evolve=True, rarity=5, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_47 = Dinimon(number=47, name='Dubpatty', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Dubpatty.png', type1=12, type2=14, line='Patty', can_evolve=True, rarity=5, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_48 = Dinimon(number=48, name='Tripatty', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tripatty.png', type1=12, type2=14, line='Patty', can_evolve=False, rarity=1, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_48 = Dinimon(number=48, name='Tripatty', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tripatty.png', type1=12, type2=14, line='Patty', can_evolve=False, rarity=1, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_49 = Dinimon(number=49, name='Glowlure', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Glowlure.png', type1=1, type2=5, line='Glowlure', can_evolve=True, rarity=17, biomes='Cavelake/Ocean', health_range='50', energy_range='10-15', possible_moves='Bright Attack')
+    dinimon_49 = Dinimon(number=49, name='Glowlure', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Glowlure.png', type1=1, type2=5, line='Glowlure', can_evolve=True, rarity=17, biomes='Cavelake/Ocean', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')
 
-    dinimon_50 = Dinimon(number=50, name='Danglure', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Danglure.png', type1=1, type2=5, line='Glowlure', can_evolve=True, rarity=6, biomes='Cavelake/Ocean', health_range='50', energy_range='10-15', possible_moves='Bright Attack')
+    dinimon_50 = Dinimon(number=50, name='Danglure', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Danglure.png', type1=1, type2=5, line='Glowlure', can_evolve=True, rarity=6, biomes='Cavelake/Ocean', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')
 
-    dinimon_51 = Dinimon(number=51, name='Fanglure', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Danglure.png', type1=1, type2=5, line='Glowlure', can_evolve=False, rarity=2, biomes='Cavelake/Ocean', health_range='50', energy_range='10-15', possible_moves='Bright Attack')
+    dinimon_51 = Dinimon(number=51, name='Fanglure', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Danglure.png', type1=1, type2=5, line='Glowlure', can_evolve=False, rarity=2, biomes='Cavelake/Ocean', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')
 
-    dinimon_52 = Dinimon(number=52, name='Claymate', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Claymate.png', type1=7, type2=5, line='Claymate', can_evolve=True, rarity=16, biomes='Mesa/Swamp', health_range='50', energy_range='10-15', possible_moves='Earth Attack')
+    dinimon_52 = Dinimon(number=52, name='Claymate', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Claymate.png', type1=7, type2=5, line='Claymate', can_evolve=True, rarity=16, biomes='Mesa/Swamp', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
-    dinimon_53 = Dinimon(number=53, name='Claydos', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Claydos.png', type1=7, type2=5, line='Claymate', can_evolve=True, rarity=7, biomes='Mesa/Swamp', health_range='50', energy_range='10-15', possible_moves='Earth Attack')
+    dinimon_53 = Dinimon(number=53, name='Claydos', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Claydos.png', type1=7, type2=5, line='Claymate', can_evolve=True, rarity=7, biomes='Mesa/Swamp', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
-    dinimon_54 = Dinimon(number=54, name='Claymore', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Claymight.png', type1=7, type2=5, line='Claymate', can_evolve=False, rarity=2, biomes='Mesa/Swamp', health_range='50', energy_range='10-15', possible_moves='Earth Attack')
+    dinimon_54 = Dinimon(number=54, name='Claymore', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Claymight.png', type1=7, type2=5, line='Claymate', can_evolve=False, rarity=2, biomes='Mesa/Swamp', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
-    dinimon_55 = Dinimon(number=55, name='Slabma', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Slabma.png', type1=7, type2=9, line='Slabma', can_evolve=True, rarity=7, biomes='Volcano/Mountain', health_range='50', energy_range='10-15', possible_moves='Burning Attack')
+    dinimon_55 = Dinimon(number=55, name='Slabma', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Slabma.png', type1=7, type2=9, line='Slabma', can_evolve=True, rarity=7, biomes='Volcano/Mountain', health_range='50', energy_range='10-15', possible_moves='Burning Attack/')
 
-    dinimon_56 = Dinimon(number=56, name='Slabcanic', width=110, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Slabcanic.png', type1=7, type2=9, line='Slabma', can_evolve=False, rarity=2, biomes='Mountain/Volcano', health_range='50', energy_range='10-15', possible_moves='Burning Attack')
+    dinimon_56 = Dinimon(number=56, name='Slabcanic', width=110, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Slabcanic.png', type1=7, type2=9, line='Slabma', can_evolve=False, rarity=2, biomes='Mountain/Volcano', health_range='50', energy_range='10-15', possible_moves='Burning Attack/')
 
-    dinimon_57 = Dinimon(number=57, name='Kitcool', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Kitcool.png', type1=2, type2=14, line='Kitcool', can_evolve=True, rarity=12, biomes='Snow/Jungle', health_range='50', energy_range='10-15', possible_moves='Cold Attack')
+    dinimon_57 = Dinimon(number=57, name='Kitcool', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Kitcool.png', type1=2, type2=14, line='Kitcool', can_evolve=True, rarity=12, biomes='Snow/Jungle', health_range='50', energy_range='10-15', possible_moves='Cold Attack/')
 
-    dinimon_58 = Dinimon(number=58, name='Chillion', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Chillion.png', type1=2, type2=8, line='Kitcool', can_evolve=True, rarity=5, biomes='Snow/Jungle', health_range='50', energy_range='10-15', possible_moves='Cold Attack')
+    dinimon_58 = Dinimon(number=58, name='Chillion', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Chillion.png', type1=2, type2=8, line='Kitcool', can_evolve=True, rarity=5, biomes='Snow/Jungle', health_range='50', energy_range='10-15', possible_moves='Cold Attack/')
 
-    dinimon_59 = Dinimon(number=59, name='Vinlion', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Vinlion.png', type1=2, type2=8, line='Kitcool', can_evolve=False, rarity=1, biomes='Snow/Jungle', health_range='50', energy_range='10-15', possible_moves='Cold Attack')
+    dinimon_59 = Dinimon(number=59, name='Vinlion', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Vinlion.png', type1=2, type2=8, line='Kitcool', can_evolve=False, rarity=1, biomes='Snow/Jungle', health_range='50', energy_range='10-15', possible_moves='Cold Attack/')
 
-    dinimon_60 = Dinimon(number=60, name='Darkhold', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Darkhold.png', type1=3, type2=10, line='Darkhold', can_evolve=True, rarity=9, biomes='Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack')
+    dinimon_60 = Dinimon(number=60, name='Darkhold', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Darkhold.png', type1=3, type2=10, line='Darkhold', can_evolve=True, rarity=9, biomes='Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack/')
 
-    dinimon_61 = Dinimon(number=61, name='Darksquire', width=45, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Darksquire.png', type1=3, type2=10, line='Darkhold', can_evolve=True, rarity=1, biomes='Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack')
+    dinimon_61 = Dinimon(number=61, name='Darksquire', width=45, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Darksquire.png', type1=3, type2=10, line='Darkhold', can_evolve=True, rarity=1, biomes='Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack/')
 
-    dinimon_62 = Dinimon(number=62, name='Darksalot', width=75, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Darksalot.png', type1=3, type2=10, line='Darkhold', can_evolve=False, rarity=0, biomes='Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack')
+    dinimon_62 = Dinimon(number=62, name='Darksalot', width=75, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Darksalot.png', type1=3, type2=10, line='Darkhold', can_evolve=False, rarity=0, biomes='Swamp/Cave', health_range='50', energy_range='10-15', possible_moves='Shadow Attack/')
 
-    dinimon_63 = Dinimon(number=63, name='Sprout', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Sprout.png', type1=8, type2=14, line='Sprout', can_evolve=True, rarity=17, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack')
+    dinimon_63 = Dinimon(number=63, name='Sprout', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Sprout.png', type1=8, type2=14, line='Sprout', can_evolve=True, rarity=17, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack/')
 
-    dinimon_64 = Dinimon(number=64, name='Zapcrop', width=45, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Zapcrop.png', type1=8, type2=6, line='Sprout', can_evolve=True, rarity=7, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack')
+    dinimon_64 = Dinimon(number=64, name='Zapcrop', width=45, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Zapcrop.png', type1=8, type2=6, line='Sprout', can_evolve=True, rarity=7, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack/')
 
-    dinimon_65 = Dinimon(number=65, name='Shockobb', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shockobb.png', type1=8, type2=6, line='Sprout', can_evolve=False, rarity=2, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack')
+    dinimon_65 = Dinimon(number=65, name='Shockobb', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shockobb.png', type1=8, type2=6, line='Sprout', can_evolve=False, rarity=2, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack/')
 
-    dinimon_66 = Dinimon(number=66, name='Shockle', width=48, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shockle.png', type1=6, type2=14, line='Shockle', can_evolve=True, rarity=15, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack')
+    dinimon_66 = Dinimon(number=66, name='Shockle', width=48, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shockle.png', type1=6, type2=14, line='Shockle', can_evolve=True, rarity=15, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack/')
 
-    dinimon_67 = Dinimon(number=67, name='Shox', width=100, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shox.png', type1=6, type2=14, line='Shockle', can_evolve=False, rarity=2, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack')
+    dinimon_67 = Dinimon(number=67, name='Shox', width=100, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Shox.png', type1=6, type2=14, line='Shockle', can_evolve=False, rarity=2, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Growth Attack/')
 
-    dinimon_68 = Dinimon(number=68, name='Vatbat', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Vatbat.png', type1=4, type2=13, line='Vatbat', can_evolve=True, rarity=17, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack')
+    dinimon_68 = Dinimon(number=68, name='Vatbat', width=30, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Vatbat.png', type1=4, type2=13, line='Vatbat', can_evolve=True, rarity=17, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack/')
 
-    dinimon_69 = Dinimon(number=69, name='Vatpire', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Vatpire.png', type1=4, type2=13, line='Vatbat', can_evolve=True, rarity=6, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack')
+    dinimon_69 = Dinimon(number=69, name='Vatpire', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Vatpire.png', type1=4, type2=13, line='Vatbat', can_evolve=True, rarity=6, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack/')
 
-    dinimon_70 = Dinimon(number=70, name='Slobbervat', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Slobbervat.png', type1=4, type2=13, line='Vatbat', can_evolve=False, rarity=2, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack')
+    dinimon_70 = Dinimon(number=70, name='Slobbervat', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Slobbervat.png', type1=4, type2=13, line='Vatbat', can_evolve=False, rarity=2, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Toxic Attack/')
 
-    dinimon_71 = Dinimon(number=71, name='Radinch', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Radinch.png', type1=1, type2=14, line='Radinch', can_evolve=True, rarity=17, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Bright Attack')
+    dinimon_71 = Dinimon(number=71, name='Radinch', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Radinch.png', type1=1, type2=14, line='Radinch', can_evolve=True, rarity=17, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')
 
-    dinimon_72 = Dinimon(number=72, name='Radiosnake', width=65, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Radiosnake.png', type1=1, type2=13, line='Radinch', can_evolve=True, rarity=7, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Bright Attack/Toxic Attack')
+    dinimon_72 = Dinimon(number=72, name='Radiosnake', width=65, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Radiosnake.png', type1=1, type2=13, line='Radinch', can_evolve=True, rarity=7, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Bright Attack/Toxic Attack/')
 
-    dinimon_73 = Dinimon(number=73, name='Glowbra', width=85, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Glowbra.png', type1=1, type2=13, line='Radinch', can_evolve=True, rarity=3, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Bright Attack/Toxic Attack')
+    dinimon_73 = Dinimon(number=73, name='Glowbra', width=85, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Glowbra.png', type1=1, type2=13, line='Radinch', can_evolve=True, rarity=3, biomes='Cave', health_range='50', energy_range='10-15', possible_moves='Bright Attack/Toxic Attack/')
 
-    dinimon_74 = Dinimon(number=74, name='Snowlem', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Snowlem.png', type1=2, type2=10, line='Snowlem', can_evolve=True, rarity=8, biomes='Snow/Peaks', health_range='50', energy_range='10-15', possible_moves='Cold Attack')
+    dinimon_74 = Dinimon(number=74, name='Snowlem', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Snowlem.png', type1=2, type2=10, line='Snowlem', can_evolve=True, rarity=8, biomes='Snow/Peaks', health_range='50', energy_range='10-15', possible_moves='Cold Attack/')
 
-    dinimon_75 = Dinimon(number=75, name='Brrtanium', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Brrtanium.png', type1=2, type2=10, line='Snowlem', can_evolve=False, rarity=1, biomes='Snow/Peaks', health_range='50', energy_range='10-15', possible_moves='Cold Attack')
+    dinimon_75 = Dinimon(number=75, name='Brrtanium', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Brrtanium.png', type1=2, type2=10, line='Snowlem', can_evolve=False, rarity=1, biomes='Snow/Peaks', health_range='50', energy_range='10-15', possible_moves='Cold Attack/')
 
-    dinimon_76 = Dinimon(number=76, name='Dirust', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Dirust.png', type1=7, type2=10, line='Dirust', can_evolve=True, rarity=10, biomes='Mountain/Cave/Mesa', health_range='50', energy_range='10-15', possible_moves='Earth Attack')
+    dinimon_76 = Dinimon(number=76, name='Dirust', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Dirust.png', type1=7, type2=10, line='Dirust', can_evolve=True, rarity=10, biomes='Mountain/Cave/Mesa', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
-    dinimon_77 = Dinimon(number=77, name='Corrodeck', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Corrodeck.png', type1=7, type2=10, line='Dirust', can_evolve=True, rarity=1, biomes='Mountain/Cave/Mesa', health_range='50', energy_range='10-15', possible_moves='Earth Attack')
+    dinimon_77 = Dinimon(number=77, name='Corrodeck', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Corrodeck.png', type1=7, type2=10, line='Dirust', can_evolve=True, rarity=1, biomes='Mountain/Cave/Mesa', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
-    dinimon_78 = Dinimon(number=78, name='Tetanusaurust', width=150, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tetanusaurust.png', type1=7, type2=10, line='Dirust', can_evolve=False, rarity=1, biomes='Mountain/Cave/Mesa', health_range='50', energy_range='10-15', possible_moves='Earth Attack')
+    dinimon_78 = Dinimon(number=78, name='Tetanusaurust', width=150, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tetanusaurust.png', type1=7, type2=10, line='Dirust', can_evolve=False, rarity=1, biomes='Mountain/Cave/Mesa', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
-    dinimon_79 = Dinimon(number=79, name='Goobanut', width=25, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Goobanut.png', type1=12, type2=14, line='Goobanut', can_evolve=False, rarity=17, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Familiar Attack')
+    dinimon_79 = Dinimon(number=79, name='Goobanut', width=25, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Goobanut.png', type1=12, type2=14, line='Goobanut', can_evolve=False, rarity=17, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_80 = Dinimon(number=80, name='Dimbot', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Dimbot.png', type1=1, type2=10, line='Dimbot', can_evolve=True, rarity=14, biomes='Peaks', health_range='50', energy_range='10-15', possible_moves='Bright Attack')
+    dinimon_80 = Dinimon(number=80, name='Dimbot', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Dimbot.png', type1=1, type2=10, line='Dimbot', can_evolve=True, rarity=14, biomes='Peaks', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')
 
-    dinimon_81 = Dinimon(number=81, name='Flashback', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Flashback.png', type1=1, type2=10, line='Dimbot', can_evolve=True, rarity=0, biomes='Peaks', health_range='50', energy_range='10-15', possible_moves='Bright Attack')    
+    dinimon_81 = Dinimon(number=81, name='Flashback', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Flashback.png', type1=1, type2=10, line='Dimbot', can_evolve=True, rarity=0, biomes='Peaks', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')    
 
-    dinimon_82 = Dinimon(number=82, name='Beacontron', width=85, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Beacontron.png', type1=1, type2=10, line='Dimbot', can_evolve=False, rarity=0, biomes='Peaks', health_range='50', energy_range='10-15', possible_moves='Bright Attack')
-
-
+    dinimon_82 = Dinimon(number=82, name='Beacontron', width=85, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Beacontron.png', type1=1, type2=10, line='Dimbot', can_evolve=False, rarity=0, biomes='Peaks', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')
 
 
-    dinimon_0 = Dinimon(number=0, name='', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/DINIMON.png', type1=0, type2=14, line='', can_evolve=True, rarity=0, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Type Attack')
+
+
+    dinimon_0 = Dinimon(number=0, name='', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/DINIMON.png', type1=0, type2=14, line='', can_evolve=True, rarity=0, biomes='Grasslands', health_range='50', energy_range='10-15', possible_moves='Type Attack/')
 
     db.session.add(dinimon_1)
     db.session.add(dinimon_2)
@@ -543,7 +543,7 @@ def create_captured_dinimon():
 
     dinimon1 = Captured_Dinimon(player_id=1, dinimon_id=79, nickname='Goobs', move1=12, move2=8, move3=14, move4=14, energy=15, max_energy=15, health=15, max_health=15, experience=400, max_experience=500, level=4, level_to_evolve=-1, in_party=True)
 
-    dinimon2 = Captured_Dinimon(player_id=1, dinimon_id=78, nickname='Rexy', move1=7, move2=10, move3=11, move4=14, energy=15, max_energy=15, health=15, max_health=20, experience=204, max_experience=600, level=5, level_to_evolve=-1, in_party=False)
+    dinimon2 = Captured_Dinimon(player_id=1, dinimon_id=78, nickname='Rexy', move1=7, move2=10, move3=11, move4=14, energy=15, max_energy=15, health=15, max_health=20, experience=204, max_experience=600, level=5, level_to_evolve=-1, in_party=True)
 
     db.session.add(dinimon1)
     db.session.add(dinimon2)

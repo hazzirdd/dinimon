@@ -2,45 +2,48 @@
 {% block content %}
 <div class="screen" style="background-image: url({{ area.image }});">
     {% if 'wild_battle' not in session %}
-    <img class="sprite" src="https://storage.cloud.google.com/property-runner/right-still.png" alt="Sprite" style="left:{{ left }}px;top:{{ top }}px;">
+        <img class="sprite" src="https://storage.cloud.google.com/property-runner/right-still.png" alt="Sprite" style="left:{{ left }}px;top:{{ top }}px;">
 
-    {% for event in events %}
+        {% for event in events %}
 
-    {% if event.event == 'dinimon_spawn' %}
-    <img class="{{ event.event }}", src="{{ event.image }}" alt="spawner" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;position: absolute;display:none">
-    {% elif event.event == 'dinimon' %}
-    <img class="{{ event.event }}", src="{{ event.image }}" alt="{{ event.image }}" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;width:{{ event.width }}px;position: absolute;">
-    {% else %}
-    <img class="{{ event.event }}", src="{{ event.image }}" alt="event" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;">
+            {% if event.event == 'dinimon_spawn' %}
+                <img class="{{ event.event }}", src="{{ event.image }}" alt="spawner" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;position: absolute;display:none">
+            {% elif event.event == 'dinimon' %}
+                <img class="{{ event.event }}", src="{{ event.image }}" alt="{{ event.image }}" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;width:{{ event.width }}px;position: absolute;">
+            {% else %}
+                <img class="{{ event.event }}", src="{{ event.image }}" alt="event" style="left:{{ event.left_coord }}px; top:{{ event.top_coord }}px;">
+            {% endif %}
+        
+        {% endfor %}
     {% endif %}
-    
-    {% endfor %}
-    {% endif %}
+
 
     <!-- BATTLE_PAGE -->
     {% if wild_battle != 'none' %}
-    <div class="battle_page">
-        <img class="enemy_dinimon" src="{{ wild_battle.image }}">
-    </div>
+        <div class="battle_page">
+            <img class="enemy_dinimon" src="{{ wild_battle.image }}">
+        </div>
 
-    {% if 'main_dini' not in session %}
-    <div class="battle_bottom_banner">
-        {% for dinimon in party %}
-        <form action="/choose_main_dini", method="post">
-            <input type="hidden" name="dinimon" value="{{ dinimon.captured_dinimon_id }}">
-            <input class="choose_party_member_button" type="submit" value="{{ dinimon.nickname }}">
-        </form>
-    </div>
-        {% endfor %}
-    {% else %}
-    <div class="battle_bottom_banner" style="background-color: brown;">
-        {% for move in moves %}
-        <form>
-            <input class="choose_party_member_button" type="submit" value="Use {{ move.move }}">
-        </form>
-        {% endfor %}
-    </div>
-    {% endif %}
+        {% if 'main_dini' not in session %}
+        <p class="bottom_banner_title">Choose Your Dinimon</p>
+            <div class="battle_bottom_banner">
+                {% for dinimon in party %}
+                <form action="/choose_main_dini", method="post">
+                    <input type="hidden" name="dinimon" value="{{ dinimon.captured_dinimon_id }}">
+                    <input class="choose_party_member_button" type="submit" value="{{ dinimon.nickname }}">
+                </form>
+                {% endfor %}
+            </div>
+        {% else %}
+            <img class="main_dini" src="https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Goobanut.png">
+            <div class="battle_bottom_banner" style="background-color: brown;">
+                {% for move in moves %}
+                <form>
+                    <input class="choose_party_member_button" type="submit" value="Use {{ move.move }}">
+                </form>
+                {% endfor %}
+            </div>
+        {% endif %}
 
     {% endif %}
     <!-- END BATTLE_PAGE -->

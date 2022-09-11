@@ -41,7 +41,7 @@ body {
     top: 463px;
     height: 96px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -58,11 +58,27 @@ body {
 }
 
 .enemy_dinimon {
-    left: 598px;
-    top: 44px;
+    left: 689px;
+    top: 15px;
     width: 186px;
     transform: scaleX(-1);
     position: absolute;
+}
+
+.main_dini {
+    width: 186px;
+    position: absolute;
+    top: 80px;
+    left: 12px;
+}
+
+.bottom_banner_title {
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    top: 436px;
+    left: 343px;
+    z-index: 1;
 }
 
 .controls {

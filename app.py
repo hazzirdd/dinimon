@@ -1,13 +1,13 @@
 from server_folder import app, db
-from server_folder.model import Area, Captured_Dinimon, Event, Dinimon
-from functions import move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_main_dini_moves
+from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon
+from functions import create_enemy_dinimon, move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_main_dini_moves
 
 from flask import redirect, render_template, request, url_for, session, flash
 
 
 @app.route('/start_session', methods=['POST', 'DELETE', 'GET'])
 def start_session():
-
+    Enemy_Dinimon.query.delete()
     dinimon = Event.query.filter(Event.event == 'dinimon').all()
     for dini in dinimon:
         db.session.delete(dini)
@@ -46,7 +46,7 @@ def homepage():
 
     if 'main_dini' in session:
         main_dini = Captured_Dinimon.query.get(session["main_dini"])
-        print('MAIN DINI:', main_dini)
+        print('MAIN DINI:', main_dini.nickname)
         moves = setup_main_dini_moves(main_dini)
         print(moves[0].move)
 
@@ -97,6 +97,7 @@ def move():
     elif event[0] == 'wild_battle':
         session["wild_battle"] =  event[1].dinimon_id
         print('Battle with:::', event[1].name)
+        enemy = create_enemy_dinimon(event[1].dinimon_id)
     else:
         pass
 

@@ -106,6 +106,21 @@ class Captured_Dinimon(db.Model):
     in_party = db.Column(db.Boolean)
 
 
+class Enemy_Dinimon(db.Model):
+    __tablename__ = 'enemy_dinimon'
+
+    enemy_dinimon_id = db.Column(db.Integer, primary_key=True)
+    dinimon_id = db.Column(db.Integer, db.ForeignKey("dinimon.dinimon_id"))
+    move1 = db.Column(db.Integer, db.ForeignKey("moves.move_id"))
+    move2 = db.Column(db.Integer, db.ForeignKey("moves.move_id"))
+    move3 = db.Column(db.Integer, db.ForeignKey("moves.move_id"))
+    move4 = db.Column(db.Integer, db.ForeignKey("moves.move_id"))
+    max_energy = db.Column(db.Integer)
+    health = db.Column(db.Integer)
+    max_health = db.Column(db.Integer)
+    level = db.Column(db.Integer)
+
+
 def connect_to_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://hayde:haz@localhost/dinimon'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

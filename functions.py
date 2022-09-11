@@ -1,7 +1,7 @@
 import random
 
 from server_folder import db
-from server_folder.model import Event, Area, Dinimon, Type, Captured_Dinimon, Move
+from server_folder.model import Event, Area, Dinimon, Type, Captured_Dinimon, Move, Enemy_Dinimon
 
 def move_sprite(direction, left, top, sprite_xy):
     if direction == 'up':
@@ -60,7 +60,6 @@ def event_check(area_id, sprite_xy):
                 return result
             elif event.event == 'dinimon':
                 dinimon = Dinimon.query.filter(Dinimon.image == event.image).first()
-
                 print(f'You found a {dinimon.name}!')
                 return ['wild_battle', dinimon]
 
@@ -132,3 +131,37 @@ def setup_main_dini_moves(main_dini):
         moves.append(move4)
     return moves
  
+
+def create_enemy_dinimon(dinimon_id):
+    dinimon = Dinimon.query.get(dinimon_id)
+    all_moves = dinimon.possible_moves.split('/')
+
+    print('ALL POSSIBLE MOVES:', all_moves)
+    # BUG: when i split all_moves it creates a none type variable
+
+    move1 = random.choice(all_moves)
+    move1_id = Move.query.filter(Move.move == move1).first()
+    all_moves.remove(move1)
+
+    if all_moves:
+        move2 = random.choice(all_moves)
+        move2_id = Move.query.filter(Move.move == move2).first()
+        all_moves.remove(move2)
+    else:
+        move2_id = 14
+    if all_moves:
+        move3 = random.choice(all_moves)
+        move3_id = Move.query.filter(Move.move == move3).first()
+        all_moves.remove(move3)
+    else:
+        move3_id = 14
+    if all_moves:
+        move4 = random.choice(all_moves)
+        move4_id = Move.query.filter(Move.move == move4).first()
+        all_moves.remove(move4)
+    else:
+        move4_id = 14
+
+    print('MOVES:',move1_id, move2_id, move3_id, move4_id)
+
+    enemy_dinimon = Enemy_Dinimon(dinimon_id=dinimon_id, move1=move1_id, move2=move2_id, move3=move3_id, move4=move4_id)
