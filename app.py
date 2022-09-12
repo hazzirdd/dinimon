@@ -1,12 +1,17 @@
 from server_folder import app, db
 from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move
-from functions import create_enemy_dinimon, move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy
+from functions import create_enemy_dinimon, health_check, move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack
 
 from flask import redirect, render_template, request, url_for, session, flash
+from time import sleep
 
 
 @app.route('/start_session', methods=['POST', 'DELETE', 'GET'])
 def start_session():
+    players_dinimon = Captured_Dinimon.query.all()
+    for tamed_dini in players_dinimon:
+        tamed_dini.health = tamed_dini.max_health
+
     Enemy_Dinimon.query.delete()
     dinimon = Event.query.filter(Event.event == 'dinimon').all()
     for dini in dinimon:
@@ -19,6 +24,8 @@ def start_session():
     session["top"] = 70
     session["sprite_xy"] = 706
 
+    session["message"] = 'none'
+    session["enemy_turn"] = False
     session["area"] = area.area_id
     session["arrow_up_left"] = 420
     session["arrow_up_top"] = 0
@@ -34,7 +41,6 @@ def start_session():
 
 @app.route('/')
 def homepage():
-
     area = Area.query.get(session["area"])
     events = spawn_events(area)
     party = get_party(session["player_id"])
@@ -57,16 +63,22 @@ def homepage():
 
     if 'enemy_dini' in session:
         enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
+        enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
         enemy_dini_moves = setup_dini_moves(enemy_dini)
         enemy_dini_health = get_dini_health(enemy_dini)
+
+        if session['enemy_turn'] == True:
+            move = run_enemy_attack(session["main_dini"], enemy_dini)
+            session['message'] += f' {enemy_dini_dex.name} used {move.move}!'
+            session['enemy_turn'] = False
+            return redirect(url_for('homepage'))
+            
     else:
         enemy_dini = 'none'
         enemy_dini_moves = 'none'
         enemy_dini_health = 'none'
 
-
-    return render_template('homepage.html', left=session["left"], top=session["top"],arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events, wild_battle=wild_battle, party=party, main_dini=main_dini, main_dini_moves=main_dini_moves, enemy_dini_moves=enemy_dini_moves, main_dini_health=main_dini_health, enemy_dini_health=enemy_dini_health)
-
+    return render_template('homepage.html', left=session["left"], top=session["top"],arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events, wild_battle=wild_battle, party=party, main_dini=main_dini, main_dini_moves=main_dini_moves, enemy_dini_moves=enemy_dini_moves, main_dini_health=main_dini_health, enemy_dini_health=enemy_dini_health, message=session["message"])
 
 
 @app.route('/move', methods=['POST'])
@@ -128,10 +140,40 @@ def choose_main_dini():
 
 @app.route('/attack_enemy', methods=['GET', 'POST'])
 def attack_enemy():
+    session["message"] = 'none'
     move_id = request.form['move']
+    dinimon = Captured_Dinimon.query.get(session["main_dini"])
+    move = Move.query.get(move_id)
+    enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
     run_attack_on_enemy(move_id, session["enemy_dini"])
+    health_status = health_check(dinimon, enemy_dini)
+    enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
+
+    print(health_status)
+    if health_status == 'enemy_dini_dead':
+        session["message"] = f'{enemy_dini_dex.name} has been murdered!'
+        session["battle_end"] = True
+        print('DINI DEAD')
+        return render_template('end_battle.html', dead_enemy=enemy_dini_dex)
+
+    session["enemy_turn"] = True
+    session['message'] = f'{dinimon.nickname} used {move.move}... and then '
 
     return redirect(url_for('homepage'))
+
+
+@app.route('/end_battle', methods=['POST'])
+def end_battle():
+    session.pop("wild_battle", None)
+    session.pop("main_dini", None)
+    session.pop("enemy_dini", None)
+    session["message"] = 'none'
+    session["enemy_turn"] = False
+    Enemy_Dinimon.query.delete()
+
+    db.session.commit()
+    return redirect(url_for('homepage'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

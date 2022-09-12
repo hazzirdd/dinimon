@@ -227,7 +227,7 @@ def create_types():
     type_10 = Type(type='metal', super_effective='1/7', not_effective='2/6/13', vulnerable_to='5/6/9/13', resistant_to='1/7/8')
     type_11 = Type(type='titan', super_effective='3/4/5/7/9/11/12', not_effective='1/13', vulnerable_to='1/11/13', resistant_to='2/3/4/5/6/7/8/9/12')
     type_12 = Type(type='familiar', super_effective='/', not_effective='11/', vulnerable_to='11/', resistant_to='/')
-    type_13 = Type(type='toxic', super_effective='/', not_effective='/', vulnerable_to='/', resistant_to='/')
+    type_13 = Type(type='toxic', super_effective='4/10/11', not_effective='2/5/7', vulnerable_to='5/7', resistant_to='10/11')
     type_14 = Type(type='none', super_effective='/', not_effective='/', vulnerable_to='/', resistant_to='/')
 
     db.session.add(type_1)

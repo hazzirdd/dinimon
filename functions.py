@@ -61,6 +61,8 @@ def event_check(area_id, sprite_xy):
             elif event.event == 'dinimon':
                 dinimon = Dinimon.query.filter(Dinimon.image == event.image).first()
                 print(f'You found a {dinimon.name}!')
+                db.session.delete(event)
+                db.session.commit()
                 return ['wild_battle', dinimon]
 
     return 'no event'
@@ -116,7 +118,6 @@ def get_party(player_id):
 
 def setup_dini_moves(main_dini):
     moves = []
-    print(main_dini, ", I CHOOSE YOU!!!")
     if main_dini.move1 != 14:
         move1 = Move.query.get(main_dini.move1)
         moves.append(move1)
@@ -174,14 +175,10 @@ def create_enemy_dinimon(dinimon_id):
     return enemy_dinimon.enemy_dinimon_id
 
 def get_dini_health(dinimon):
-    print('BEFORE:',dinimon.health)
     health = dinimon.health
     max_health = dinimon.max_health
     decimal = health/max_health
     dini_health = decimal*100
-    # dinimon.health = dini_health
-    # db.session.commit()
-    print('AFTER:',dini_health)
     return dini_health
 
 def run_attack_on_enemy(move_id, enemy_dinimon_id):
@@ -195,33 +192,67 @@ def run_attack_on_enemy(move_id, enemy_dinimon_id):
     move_super_effectives = move_type.super_effective.split('/')
     move_not_effectives = move_type.not_effective.split('/')
     enemy_types = [Type.query.get(enemy.type1), Type.query.get(enemy.type2)]
-    print(enemy_types)
 
-    for effective in move_super_effectives:
-        if str(move_type.type_id) == effective:
-            damage *= 2
-            print(f'{move_type.type} is effective against {effective}!')
-    for not_effective in move_not_effectives:
-        if str(move_type.type_id) == not_effective:
-            damage //= 2
-            print(f'{move_type.type} is not very effective against {effective}...')
-            
-    # for enemy_type in enemy_types:
-    #     enemy_vulnerabilities = enemy_type.vulnerable_to.split('/')
-    #     enemy_resistances = enemy_type.resistant_to.split('/')
-    #     for vulnerablility in enemy_vulnerabilities:
-    #         if str(move_type.type_id) == vulnerablility:
-    #             damage *= 2
-    #             print(f'{vulnerablility} is vulnerable to your {move_type.type} attack!')
-    #     for resistance in enemy_resistances:
-    #         if str(move_type.type_id) == resistance:
-    #             damage //= 2
-    #             print(f'{vulnerablility} is resistant against your {move_type.type} attack...')
+    for enemy_type in enemy_types:
+        enemy_vulnerabilities = enemy_type.vulnerable_to.split('/')
+        enemy_resistances = enemy_type.resistant_to.split('/')
+        for vulnerablility in enemy_vulnerabilities:
+            if str(move_type.type_id) == vulnerablility:
+                damage *= 2
+                print(f'{vulnerablility} is vulnerable to your {move_type.type} attack!')
+        for resistance in enemy_resistances:
+            if str(move_type.type_id) == resistance:
+                damage //= 2
+                print(f'{vulnerablility} is resistant against your {move_type.type} attack...')
 
-    print(f'Enemy is at {enemy.health} / {enemy.max_health} health points!')
+    # print(f'Enemy is at {enemy.health} / {enemy.max_health} health points!')
     health -= damage
     enemy.health = health
-    print(f'You used {move.move} for {damage} damage!')
-    print(f'The enemy is NOW at {enemy.health} / {enemy.max_health} health points!')
+    # print(f'You used {move.move} for {damage} damage!')
+    # print(f'The enemy is NOW at {enemy.health} / {enemy.max_health} health points!')
     db.session.commit()
 
+
+def run_enemy_attack(main_dini_id, enemy_dini):
+    main_dini = Captured_Dinimon.query.get(main_dini_id)
+    enemy_moves = []
+    if enemy_dini.move1 != 14:
+        enemy_moves.append(enemy_dini.move1)
+    if enemy_dini.move2 != 14:
+        enemy_moves.append(enemy_dini.move2)
+    if enemy_dini.move3 != 14:
+        enemy_moves.append(enemy_dini.move3)
+    if enemy_dini.move4 != 14:
+        enemy_moves.append(enemy_dini.move4)
+
+    move_id = random.choice(enemy_moves)
+    move = Move.query.get(move_id)
+    damage = int(move.damage)
+    health = int(main_dini.health)
+    move_type = Type.query.get(move.type_id)
+    dini_in_dex = Dinimon.query.get(main_dini.dinimon_id)
+    main_dini_types = [Type.query.get(dini_in_dex.type1), Type.query.get(dini_in_dex.type2)]
+
+    for main_dini_type in main_dini_types:
+        dini_vulnerabilities = main_dini_type.vulnerable_to.split('/')
+        dini_resistances = main_dini_type.resistant_to.split('/')
+        for vulnerablility in dini_vulnerabilities:
+            if str(move_type.type_id) == vulnerablility:
+                damage *= 2
+        for resistance in dini_resistances:
+            if str(move_type.type_id) == resistance:
+                damage //= 2
+
+    health -= damage
+    main_dini.health = health
+    db.session.commit()
+    return move
+
+
+def health_check(main_dini, enemy_dini):
+    if main_dini.health <= 0:
+        return 'main_dini_dead'
+    if enemy_dini.health <= 0:
+        return 'enemy_dini_dead'
+    
+    return 'none'

@@ -40,6 +40,11 @@
             </div>
         {% else %}
             <img class="main_dini" src="{{ main_dini.image }}">
+            {% if session['message'] != 'none' %}
+            <div class="alert_attack">
+                {{ message }}
+              </div>
+              {% endif %}
             <div class="main_health_bar_container">
                 <div class="health_bar" style="width:{{ main_dini_health }}%;">
                 </div>
@@ -60,4 +65,15 @@
     <p style="position:relative;left:-70px">{{ left }}, {{ top }}</p>
 
 </div>
+
+<!-- {% with messages = get_flashed_messages(with_categories=true) %}
+   {% if messages %}
+   {% for category, message in messages %}
+   <div class="alert_{{ category }}">
+    {{ message }}
+  </div>
+    {% endfor %}
+  {% endif %}
+ {% endwith %} -->
+
 {% endblock %}
