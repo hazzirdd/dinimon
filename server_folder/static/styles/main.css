@@ -60,13 +60,13 @@ body {
 .enemy_dinimon {
     left: 689px;
     top: 15px;
-    width: 186px;
+    width: 160px;
     transform: scaleX(-1);
     position: absolute;
 }
 
 .main_dini {
-    width: 186px;
+    width: 160px;
     position: absolute;
     top: 80px;
     left: 12px;
@@ -79,6 +79,30 @@ body {
     top: 436px;
     left: 343px;
     z-index: 1;
+}
+
+.enemy_health_bar_container {
+    width: 170px;
+    height: 10px;
+    border: 2px solid black;
+    position: absolute;
+    top: 427px;
+    left: 687px;
+}
+
+.main_health_bar_container {
+    width: 170px;
+    height: 10px;
+    border: 2px solid black;
+    position: absolute;
+    top: 427px;
+    left: 30px;
+}
+
+.health_bar {
+    background-color: rgb(13, 223, 13);
+    position: absolute;
+    height: 100%;
 }
 
 .controls {

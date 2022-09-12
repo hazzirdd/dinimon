@@ -1,1 +1,2 @@
 -Add 'objects' to the event table. Objects act as walls you cant go past. Bolders, walls, rivers ect.
+-Make wild dinimon encounters have random health/level/energy

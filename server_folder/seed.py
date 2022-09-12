@@ -226,9 +226,9 @@ def create_types():
     type_9 = Type(type='burning', super_effective='2/8/10', not_effective='3/5/9/11', vulnerable_to='4/5/7/11', resistant_to='3/6/8/9')
     type_10 = Type(type='metal', super_effective='1/7', not_effective='2/6/13', vulnerable_to='5/6/9/13', resistant_to='1/7/8')
     type_11 = Type(type='titan', super_effective='3/4/5/7/9/11/12', not_effective='1/13', vulnerable_to='1/11/13', resistant_to='2/3/4/5/6/7/8/9/12')
-    type_12 = Type(type='familiar', super_effective='', not_effective='11', vulnerable_to='11', resistant_to='')
-    type_13 = Type(type='toxic', super_effective='', not_effective='', vulnerable_to='', resistant_to='')
-    type_14 = Type(type='none', super_effective='', not_effective='', vulnerable_to='', resistant_to='')
+    type_12 = Type(type='familiar', super_effective='/', not_effective='11/', vulnerable_to='11/', resistant_to='/')
+    type_13 = Type(type='toxic', super_effective='/', not_effective='/', vulnerable_to='/', resistant_to='/')
+    type_14 = Type(type='none', super_effective='/', not_effective='/', vulnerable_to='/', resistant_to='/')
 
     db.session.add(type_1)
     db.session.add(type_2)
@@ -541,9 +541,9 @@ def create_captured_dinimon():
     print("Captured_Dinimon")
     Captured_Dinimon.query.delete()
 
-    dinimon1 = Captured_Dinimon(player_id=1, dinimon_id=79, nickname='Goobs', move1=12, move2=8, move3=14, move4=14, energy=15, max_energy=15, health=15, max_health=15, experience=400, max_experience=500, level=4, level_to_evolve=-1, in_party=True)
+    dinimon1 = Captured_Dinimon(player_id=1, dinimon_id=79, nickname='Goobs', move1=12, move2=8, move3=14, move4=14, energy=15, max_energy=15, health=15, max_health=15, experience=400, max_experience=500, level=4, level_to_evolve=-1, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Goobanut.png')
 
-    dinimon2 = Captured_Dinimon(player_id=1, dinimon_id=78, nickname='Rexy', move1=7, move2=10, move3=11, move4=14, energy=15, max_energy=15, health=15, max_health=20, experience=204, max_experience=600, level=5, level_to_evolve=-1, in_party=True)
+    dinimon2 = Captured_Dinimon(player_id=1, dinimon_id=78, nickname='Rexy', move1=7, move2=10, move3=11, move4=14, energy=15, max_energy=15, health=15, max_health=20, experience=204, max_experience=600, level=5, level_to_evolve=-1, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tetanusaurust.png')
 
     db.session.add(dinimon1)
     db.session.add(dinimon2)

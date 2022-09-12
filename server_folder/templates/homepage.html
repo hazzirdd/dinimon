@@ -23,6 +23,10 @@
         <div class="battle_page">
             <img class="enemy_dinimon" src="{{ wild_battle.image }}">
         </div>
+        <div class="enemy_health_bar_container">
+            <div class="health_bar" style="width: {{ enemy_dini_health }}%;">
+            </div>
+        </div>
 
         {% if 'main_dini' not in session %}
         <p class="bottom_banner_title">Choose Your Dinimon</p>
@@ -35,10 +39,15 @@
                 {% endfor %}
             </div>
         {% else %}
-            <img class="main_dini" src="https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Goobanut.png">
+            <img class="main_dini" src="{{ main_dini.image }}">
+            <div class="main_health_bar_container">
+                <div class="health_bar" style="width:{{ main_dini_health }}%;">
+                </div>
+            </div>
             <div class="battle_bottom_banner" style="background-color: brown;">
-                {% for move in moves %}
-                <form>
+                {% for move in main_dini_moves %}
+                <form action="/attack_enemy" method="POST">
+                    <input type="hidden" name="move" value="{{ move.move_id }}">
                     <input class="choose_party_member_button" type="submit" value="Use {{ move.move }}">
                 </form>
                 {% endfor %}

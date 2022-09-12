@@ -1,6 +1,6 @@
 from server_folder import app, db
-from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon
-from functions import create_enemy_dinimon, move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_main_dini_moves
+from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move
+from functions import create_enemy_dinimon, move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy
 
 from flask import redirect, render_template, request, url_for, session, flash
 
@@ -24,6 +24,7 @@ def start_session():
     session["arrow_up_top"] = 0
     session.pop("wild_battle", None)
     session.pop("main_dini", None)
+    session.pop("enemy_dini", None)
 
     spawn_dinimon(area)
 
@@ -47,15 +48,24 @@ def homepage():
     if 'main_dini' in session:
         main_dini = Captured_Dinimon.query.get(session["main_dini"])
         print('MAIN DINI:', main_dini.nickname)
-        moves = setup_main_dini_moves(main_dini)
-        print(moves[0].move)
-
+        main_dini_moves = setup_dini_moves(main_dini)
+        main_dini_health = get_dini_health(main_dini)
     else:
         main_dini = 'none'
-        moves = 'none'
+        main_dini_moves = 'none'
+        main_dini_health = 'none'
+
+    if 'enemy_dini' in session:
+        enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
+        enemy_dini_moves = setup_dini_moves(enemy_dini)
+        enemy_dini_health = get_dini_health(enemy_dini)
+    else:
+        enemy_dini = 'none'
+        enemy_dini_moves = 'none'
+        enemy_dini_health = 'none'
 
 
-    return render_template('homepage.html', left=session["left"], top=session["top"],arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events, wild_battle=wild_battle, party=party, main_dini=main_dini, moves=moves)
+    return render_template('homepage.html', left=session["left"], top=session["top"],arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events, wild_battle=wild_battle, party=party, main_dini=main_dini, main_dini_moves=main_dini_moves, enemy_dini_moves=enemy_dini_moves, main_dini_health=main_dini_health, enemy_dini_health=enemy_dini_health)
 
 
 
@@ -98,6 +108,7 @@ def move():
         session["wild_battle"] =  event[1].dinimon_id
         print('Battle with:::', event[1].name)
         enemy = create_enemy_dinimon(event[1].dinimon_id)
+        session["enemy_dini"] = enemy
     else:
         pass
 
@@ -114,6 +125,13 @@ def choose_main_dini():
 
     return redirect(url_for('homepage'))
 
+
+@app.route('/attack_enemy', methods=['GET', 'POST'])
+def attack_enemy():
+    move_id = request.form['move']
+    run_attack_on_enemy(move_id, session["enemy_dini"])
+
+    return redirect(url_for('homepage'))
 
 if __name__ == '__main__':
     app.run(debug=True)

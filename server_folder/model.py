@@ -104,6 +104,7 @@ class Captured_Dinimon(db.Model):
     level = db.Column(db.Integer)
     level_to_evolve = db.Column(db.Integer)
     in_party = db.Column(db.Boolean)
+    image = db.Column(db.String(255))
 
 
 class Enemy_Dinimon(db.Model):
@@ -115,6 +116,8 @@ class Enemy_Dinimon(db.Model):
     move2 = db.Column(db.Integer, db.ForeignKey("moves.move_id"))
     move3 = db.Column(db.Integer, db.ForeignKey("moves.move_id"))
     move4 = db.Column(db.Integer, db.ForeignKey("moves.move_id"))
+    type1 = db.Column(db.Integer, db.ForeignKey("types.type_id"))
+    type2 = db.Column(db.Integer, db.ForeignKey("types.type_id"))
     max_energy = db.Column(db.Integer)
     health = db.Column(db.Integer)
     max_health = db.Column(db.Integer)
