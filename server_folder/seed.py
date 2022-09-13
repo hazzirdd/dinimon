@@ -1,5 +1,5 @@
 from turtle import right
-from model import connect_to_db, db, Area, Event, Type, Dinimon, Player, Captured_Dinimon, Move, Enemy_Dinimon
+from model import connect_to_db, db, Area, Event, Type, Dinimon, Player, Captured_Dinimon, Move, Enemy_Dinimon, Item, Inventory
 
 top_exit = "https://storage.cloud.google.com/property-runner/Dinimon/top_exit.png"
 left_exit = "https://storage.cloud.google.com/property-runner/Dinimon/left_exit.png"
@@ -541,12 +541,47 @@ def create_captured_dinimon():
     print("Captured_Dinimon")
     Captured_Dinimon.query.delete()
 
-    dinimon1 = Captured_Dinimon(player_id=1, dinimon_id=79, nickname='Goobs', move1=12, move2=8, move3=14, move4=14, energy=15, max_energy=15, health=15, max_health=15, experience=400, max_experience=500, level=4, level_to_evolve=-1, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Goobanut.png')
+    dinimon1 = Captured_Dinimon(player_id=1, dinimon_id=79, nickname='Goobs', move1=12, move2=8, move3=14, move4=14, energy=15, max_energy=15, health=3, max_health=3, experience=400, max_experience=500, level=4, level_to_evolve=-1, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Goobanut.png')
 
     dinimon2 = Captured_Dinimon(player_id=1, dinimon_id=78, nickname='Rexy', move1=7, move2=10, move3=11, move4=14, energy=15, max_energy=15, health=15, max_health=20, experience=204, max_experience=600, level=5, level_to_evolve=-1, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tetanusaurust.png')
 
+    dinimon3 = Captured_Dinimon(player_id=1, dinimon_id=56, nickname='Slabcanic', move1=9, move2=7, move3=1, move4=13, energy=15, max_energy=15, health=60, max_health=60, experience=1000, max_experience=2000, level=19, level_to_evolve=-1, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Slabcanic.png')
+
     db.session.add(dinimon1)
     db.session.add(dinimon2)
+    db.session.add(dinimon3)
+
+
+def create_item():
+    print('Item')
+    Item.query.delete()
+
+    item1 = Item(name='Springsnap I', buy_value=1, sell_value=1, image='https://storage.cloud.google.com/property-runner/Items/trap1.png')
+    item2 = Item(name='Springsnap II', buy_value=2, sell_value=2, image='https://storage.cloud.google.com/property-runner/Items/trap2.png')
+    item3 = Item(name='Springsnap III', buy_value=3, sell_value=3, image='https://storage.cloud.google.com/property-runner/Items/trap3.png')
+    item4 = Item(name='Springsnap IV', buy_value=4, sell_value=4, image='https://storage.cloud.google.com/property-runner/Items/trap4.png')
+
+    db.session.add(item1)
+    db.session.add(item2)
+    db.session.add(item3)
+    db.session.add(item4)
+
+
+def create_inventory():
+    print('Inventory')
+    Inventory.query.delete()
+
+    inventory1 = Inventory(player_id=1, item_id=1, quantity=10, name='Springsnap I', buy_value=1, sell_value=1, image='https://storage.cloud.google.com/property-runner/Items/trap1.png')
+    inventory2 = Inventory(player_id=1, item_id=2, quantity=10, name='Springsnap II', buy_value=2, sell_value=2, image='https://storage.cloud.google.com/property-runner/Items/trap2.png')
+    inventory3 = Inventory(player_id=1, item_id=3, quantity=10, name='Springsnap III', buy_value=3, sell_value=3, image='https://storage.cloud.google.com/property-runner/Items/trap3.png')
+    inventory4 = Inventory(player_id=1, item_id=4, quantity=10, name='Springsnap IV', buy_value=4, sell_value=4, image='https://storage.cloud.google.com/property-runner/Items/trap4.png')
+
+    db.session.add(inventory1)
+    db.session.add(inventory2)
+    db.session.add(inventory3)
+    db.session.add(inventory4)
+
+
 
 
 if __name__ == '__main__':
@@ -563,5 +598,7 @@ if __name__ == '__main__':
     create_dinimon()
     create_move()
     create_captured_dinimon()
+    create_item()
+    create_inventory()
 
     db.session.commit()

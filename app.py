@@ -1,5 +1,5 @@
 from server_folder import app, db
-from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move
+from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory
 from functions import create_enemy_dinimon, health_check, move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack
 
 from flask import redirect, render_template, request, url_for, session, flash
@@ -11,6 +11,7 @@ def start_session():
     players_dinimon = Captured_Dinimon.query.all()
     for tamed_dini in players_dinimon:
         tamed_dini.health = tamed_dini.max_health
+        tamed_dini.in_party = True
 
     Enemy_Dinimon.query.delete()
     dinimon = Event.query.filter(Event.event == 'dinimon').all()
@@ -69,6 +70,12 @@ def homepage():
 
         if session['enemy_turn'] == True:
             move = run_enemy_attack(session["main_dini"], enemy_dini)
+            health_status = health_check(main_dini, enemy_dini)
+            if health_status == 'main_dini_dead':
+                main_dini.in_party = False
+                db.session.commit()
+                session["battle_end"] = True
+                return render_template('end_battle.html', dead_enemy='none', dead_main_dini=main_dini)
             session['message'] += f' {enemy_dini_dex.name} used {move.move}!'
             session['enemy_turn'] = False
             return redirect(url_for('homepage'))
@@ -130,11 +137,8 @@ def move():
 
 @app.route('/choose_main_dini', methods=['GET', 'POST'])
 def choose_main_dini():
-    
     dinimon_id = request.form['dinimon']
     session["main_dini"] = dinimon_id
-    print("DINI ID:",dinimon_id)
-
     return redirect(url_for('homepage'))
 
 
@@ -149,12 +153,10 @@ def attack_enemy():
     health_status = health_check(dinimon, enemy_dini)
     enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
 
-    print(health_status)
     if health_status == 'enemy_dini_dead':
         session["message"] = f'{enemy_dini_dex.name} has been murdered!'
         session["battle_end"] = True
-        print('DINI DEAD')
-        return render_template('end_battle.html', dead_enemy=enemy_dini_dex)
+        return render_template('end_battle.html', dead_enemy=enemy_dini_dex, dead_main_dini='none')
 
     session["enemy_turn"] = True
     session['message'] = f'{dinimon.nickname} used {move.move}... and then '
@@ -162,18 +164,43 @@ def attack_enemy():
     return redirect(url_for('homepage'))
 
 
-@app.route('/end_battle', methods=['POST'])
+@app.route('/end_battle', methods=['POST', 'GET'])
 def end_battle():
+    ####BUG Instead of taking the dini out of party on death, it will be sent to the graveyard in later updates ####
     session.pop("wild_battle", None)
     session.pop("main_dini", None)
     session.pop("enemy_dini", None)
     session["message"] = 'none'
     session["enemy_turn"] = False
     Enemy_Dinimon.query.delete()
-
     db.session.commit()
     return redirect(url_for('homepage'))
 
+
+@app.route('/resume_battle', methods=['POST', 'GET'])
+def resume_battle():
+    main_dini = Captured_Dinimon.query.get(session["main_dini"])
+    main_dini.in_party = False
+    db.session.commit()
+    session.pop("main_dini", None)
+    session["enemy_turn"] = False
+    session["message"] = 'none'
+    return redirect(url_for('homepage'))
+
+
+@app.route('/open_inventory', methods=['POST', 'GET'])
+def open_inventory():
+    inventory = Inventory.query.filter(Inventory.player_id == session["player_id"]).all()
+    for i in inventory:
+        print(i.name)
+    return render_template('inventory.html', inventory=inventory)
+
+
+@app.route('/use_item/<item_id>', methods=['POST', 'GET'])
+def use_item(item_id):
+    print(item_id)
+
+    return redirect(url_for('open_inventory'))
 
 if __name__ == '__main__':
     app.run(debug=True)

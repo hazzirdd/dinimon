@@ -34,7 +34,7 @@
                 {% for dinimon in party %}
                 <form action="/choose_main_dini", method="post">
                     <input type="hidden" name="dinimon" value="{{ dinimon.captured_dinimon_id }}">
-                    <input class="choose_party_member_button" type="submit" value="{{ dinimon.nickname }}">
+                    <input class="battle_banner_button" type="submit" value="{{ dinimon.nickname }}">
                 </form>
                 {% endfor %}
             </div>
@@ -53,9 +53,10 @@
                 {% for move in main_dini_moves %}
                 <form action="/attack_enemy" method="POST">
                     <input type="hidden" name="move" value="{{ move.move_id }}">
-                    <input class="choose_party_member_button" type="submit" value="Use {{ move.move }}">
+                    <input class="battle_banner_button" type="submit" value="Use {{ move.move }}">
                 </form>
                 {% endfor %}
+                <a href="/open_inventory" class="battle_banner_button">Inventory</a>
             </div>
         {% endif %}
 

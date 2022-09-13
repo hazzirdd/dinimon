@@ -124,6 +124,28 @@ class Enemy_Dinimon(db.Model):
     level = db.Column(db.Integer)
 
 
+class Item(db.Model):
+    __tablename__ = 'items'
+
+    item_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255))
+    image = db.Column(db.String(255))
+    buy_value = db.Column(db.Integer)
+    sell_value = db.Column(db.Integer)
+
+
+class Inventory(db.Model):
+    inventory_id = db.Column(db.Integer, primary_key=True)
+    player_id = db.Column(db.Integer, db.ForeignKey("players.player_id"))
+    item_id = db.Column(db.Integer, db.ForeignKey("items.item_id"))
+    quantity = db.Column(db.Integer)
+    name = db.Column(db.String(255))
+    buy_value = db.Column(db.Integer)
+    sell_value = db.Column(db.Integer)
+    image = db.Column(db.String(255))
+
+
+
 def connect_to_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://hayde:haz@localhost/dinimon'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

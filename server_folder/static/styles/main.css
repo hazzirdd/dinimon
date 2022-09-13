@@ -47,15 +47,20 @@ body {
     align-items: center;
 }
 
-.choose_party_member_button {
+.battle_banner_button {
     text-decoration: none;
     color: rgb(0, 0, 0);
     font-size: 20px;
     position: relative;
+    background-color: aliceblue;
+    padding: 3px;
+    font-family:sans-serif;
+    border: 2px solid black;
 }
 
-.choose_party_member_button:hover {
-    color: rgb(1, 107, 200);
+.battle_banner_button:hover {
+    color: rgb(200, 1, 1);
+    border: 2px solid red;
     cursor: pointer;
 }
 
@@ -123,19 +128,51 @@ body {
     position: absolute;
     left: 365px;
     width: 190px;
-    top: 35px;
+    top: 80px;
 }
 
 .dead_enemy_text {
     position: absolute;
-    left: 383px;
-    top: 296px;
+    left: 357px;
+    top: 417px;
+    color: wheat;
+    font-style: italic;
+    font-size: 22px;
 }
 
 .back_home_button {
     position: absolute;
     left: 389px;
-    top: 358px;
+    top: 500px;
+}
+
+.dead_dini_choices {
+    display: flex;
+    position: absolute;
+    left: 335px;
+    top: 498px;
+    width: 253px;
+    justify-content: space-around;
+}
+
+.dead_dini_choice {
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    padding: 3px;
+    width: 105px;
+    text-align: center;
+    border: 2px solid black;
+}
+
+.dead_dini_choice:hover {
+    text-decoration: none;
+    background-color: white;
+    color: red;
+    padding: 3px;
+    width: 105px;
+    text-align: center;
+    border: 2px solid red;
 }
 
 .controls {
@@ -211,4 +248,42 @@ body {
     width: 70px;
     height: 70px;
     position: relative;   
+}
+
+
+/* INVENTORY */
+.inventory_back_button {
+    text-decoration: none;
+    background-color: aliceblue;
+    padding: 3px;
+    border: 2px solid black;
+    position: absolute;
+}
+
+.all_inventory_items_container {
+    position: absolute;
+    top: 43px;
+    left: 23px;
+    width: 100%;
+}
+
+.inventory_item_container {
+    display: flex;
+    flex-direction: row;
+    width: 226px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.inventory_item_image {
+    width: 66px;
+}
+
+.inventory_item_image:hover {
+    width: 66px;
+    cursor: pointer;
+}
+
+.inventory_item_title {
+    font-size: 15px;
 }
