@@ -22,3 +22,12 @@ def catch_dinimon(item):
         print(f'{catch}, It broke free!')
 
     return catch
+
+
+def add_dini_to_player(dinimon, dinimon_dex, player_id):
+    new_dini = Captured_Dinimon(player_id=player_id, dinimon_id=dinimon.dinimon_id, nickname=dinimon_dex.name, move1=dinimon.move1, move2=dinimon.move2, move3=dinimon.move3, move4=dinimon.move4, energy=dinimon.max_energy, max_energy=dinimon.max_energy, health=dinimon.health, max_health=dinimon.max_health, experience=1, max_experience=9999, level=1, level_to_evolve=-1, in_party=False, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/{{ dinimon_dex.name }}.png')
+
+    db.session.add(new_dini)
+    db.session.commit()
+
+    return new_dini

@@ -1,8 +1,8 @@
 from server_folder import app, db
 from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory
 
-from functions import create_enemy_dinimon, health_check, move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack
-from catching import catch_dinimon
+from functions import create_enemy_dinimon, health_check, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack
+from catching import add_dini_to_player, catch_dinimon
 
 from flask import redirect, render_template, request, url_for, session, flash
 from time import sleep
@@ -168,12 +168,13 @@ def attack_enemy():
 
 @app.route('/end_battle', methods=['POST', 'GET'])
 def end_battle():
-    ####BUG Instead of taking the dini out of party on death, it will be sent to the graveyard in later updates ####
+    ####BUG Instead of taking the dini out of party on death, it will be sent to the graveyard in later updates. Create a new endpoint for this /dinimon_dies ####
     session.pop("wild_battle", None)
     session.pop("main_dini", None)
     session.pop("enemy_dini", None)
     session["message"] = 'none'
     session["enemy_turn"] = False
+    session["catch_try"] = -1
     Enemy_Dinimon.query.delete()
     db.session.commit()
     return redirect(url_for('homepage'))
@@ -258,7 +259,20 @@ def collect_dinimon():
     enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
     enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
     width = enemy_dini_dex.width * 4
-    return render_template('collect.html', dinimon=enemy_dini_dex, width=width)
+    new_dini = add_dini_to_player(enemy_dini, enemy_dini_dex, session["player_id"])
+    return render_template('collect.html', dinimon=enemy_dini_dex, width=width, new_dini=new_dini)
+
+
+@app.route('/name_new_dinimon', methods=['POST', 'GET'])
+def name_new_dinimon():
+    captured_dini_id = request.form['new_dini']
+    nickname = request.form['nickname']
+    enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
+    enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
+    nickname_dinimon(nickname, enemy_dini_dex, captured_dini_id)
+
+    return redirect(url_for('end_battle'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

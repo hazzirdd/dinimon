@@ -360,3 +360,13 @@ body {
     top: 300px;
     left: 570px;
 }
+
+.new_dinimon_message {
+    color: gold;
+    font-weight: bolder;
+    font-style: italic;
+    font-size: 40px;
+    position: absolute;
+    top: -19px;
+    left: 98px;
+}

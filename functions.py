@@ -256,3 +256,10 @@ def health_check(main_dini, enemy_dini):
         return 'enemy_dini_dead'
     
     return 'none'
+
+
+def nickname_dinimon(nickname, dinimon_dex, captured_dini_id):
+    new_dini = Captured_Dinimon.query.get(captured_dini_id)
+    print(nickname)
+    print(dinimon_dex.name)
+    print(new_dini) 

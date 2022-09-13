@@ -2,11 +2,17 @@
 {% block content %}
 <div class="screen" style="background-image: url('https://static.vecteezy.com/system/resources/previews/002/395/537/original/abstract-blue-and-white-geometric-background-free-vector.jpg');">
 
-    <img style="width:{{ width }}px;left:17px;top:86px;position: absolute;" src="{{ dinimon.image }}">
+
+    <!-- IF STATEMENT TO SEE IF IT HAS BEEN CAPTURED BEFORE -->
+    <p class="new_dinimon_message">{{ dinimon.name }} has been added to the Dinidex!</p>
+    <!-- END IF -->
+
+    <img style="width:{{ width }}px;left:17px;top:110px;position: absolute;" src="{{ dinimon.image }}">
 
     <p class="register_form_title">Give your Dinimon a nickname?</p>
 
-    <form class="register_dinion_form">
+    <form action="/name_new_dinimon" class="register_dinion_form" method="post">
+        <input type="hidden" name="new_dini" value="{{ new_dini.captured_dinimon_id }}">
         <input type="text" name="nickname">
         <input type="submit" value="Confirm">
     </form>
