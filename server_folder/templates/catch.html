@@ -2,7 +2,45 @@
 {% block content %}
 <div class="screen" style="background-image: url('https://t4.ftcdn.net/jpg/01/43/70/87/360_F_143708791_hzTJx1sALPcStWIZRIKfDBnUh5GLitAG.jpg');">
 
+    <div class="catch_marker_container">
+        {% if session["catch_try"] == 0 %}
+        <p class="catch_hollow"></p>
+        <p class="catch_hollow"></p>
+        <p class="catch_hollow"></p>
+        {% elif session["catch_try"] == 1 %}
+        <p class="catch_green"></p>
+        <p class="catch_hollow"></p>
+        <p class="catch_hollow"></p>
+        {% elif session["catch_try"] == 2 %}
+        <p class="catch_green"></p>
+        <p class="catch_green"></p>
+        <p class="catch_hollow"></p>
+        {% elif session["catch_try"] == 3 %}
+        <p class="catch_green"></p>
+        <p class="catch_green"></p>
+        <p class="catch_green"></p>
+        {% else %}
+        <p class="catch_green"></p>
+        <p class="catch_green"></p>
+        <p class="catch_green"></p>
+        {% endif %}
+    </div>
 
+    {% if session["catch_try"] == 0 %}
+    <img class="" style="width:{{ width }}px;left:337px;top:86px;position: absolute;" src="{{ enemy_dini.image }}">
+    {% else %}
+    <img class="springsnap" src="{{ item.image }}">
+    {% endif %}
 
+    {% if session["catch_try"] == 0 %}
+    <a href="/use_item/{{ item.item_id }}" class="catch_btn">Catch!</a>
+    {% elif session["catch_try"] == 1 %}
+    <a href="/use_item/{{ item.item_id }}" class="catch_btn">Catch!</a>
+    {% elif session["catch_try"] == 2 %}
+    <a href="/use_item/{{ item.item_id }}" class="catch_btn">Catch!</a>
+    {% else %}
+    <a href="/collect_dinimon" class="catch_btn">Collect</a>
+    <img class="catch_star" src="https://www.freepnglogos.com/uploads/star-png/star-vector-png-transparent-image-pngpix-21.png">
+    {% endif %}
 </div>
 {% endblock %}

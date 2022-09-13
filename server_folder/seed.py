@@ -571,10 +571,10 @@ def create_inventory():
     print('Inventory')
     Inventory.query.delete()
 
-    inventory1 = Inventory(player_id=1, item_id=1, quantity=10, name='Springsnap I', buy_value=1, sell_value=1, image='https://storage.cloud.google.com/property-runner/Items/trap1.png')
+    inventory1 = Inventory(player_id=1, item_id=1, quantity=100, name='Springsnap I', buy_value=1, sell_value=1, image='https://storage.cloud.google.com/property-runner/Items/trap1.png')
     inventory2 = Inventory(player_id=1, item_id=2, quantity=10, name='Springsnap II', buy_value=2, sell_value=2, image='https://storage.cloud.google.com/property-runner/Items/trap2.png')
-    inventory3 = Inventory(player_id=1, item_id=3, quantity=10, name='Springsnap III', buy_value=3, sell_value=3, image='https://storage.cloud.google.com/property-runner/Items/trap3.png')
-    inventory4 = Inventory(player_id=1, item_id=4, quantity=10, name='Springsnap IV', buy_value=4, sell_value=4, image='https://storage.cloud.google.com/property-runner/Items/trap4.png')
+    inventory3 = Inventory(player_id=1, item_id=3, quantity=100, name='Springsnap III', buy_value=3, sell_value=3, image='https://storage.cloud.google.com/property-runner/Items/trap3.png')
+    inventory4 = Inventory(player_id=1, item_id=4, quantity=100, name='Springsnap IV', buy_value=4, sell_value=4, image='https://storage.cloud.google.com/property-runner/Items/trap4.png')
 
     db.session.add(inventory1)
     db.session.add(inventory2)

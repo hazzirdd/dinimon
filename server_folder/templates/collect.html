@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="screen" style="background-image: url('https://static.vecteezy.com/system/resources/previews/002/395/537/original/abstract-blue-and-white-geometric-background-free-vector.jpg');">
+
+    <img style="width:{{ width }}px;left:17px;top:86px;position: absolute;" src="{{ dinimon.image }}">
+
+    <p class="register_form_title">Give your Dinimon a nickname?</p>
+
+    <form class="register_dinion_form">
+        <input type="text" name="nickname">
+        <input type="submit" value="Confirm">
+    </form>
+</div>
+{% endblock %}

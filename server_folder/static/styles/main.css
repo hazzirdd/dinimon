@@ -287,3 +287,76 @@ body {
 .inventory_item_title {
     font-size: 15px;
 }
+
+
+/* CATCH */
+.catch_marker_container {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    left: 360px;
+    width: 200px;
+}
+
+.catch_hollow {
+    padding: 25px;
+    border: 2px solid black;
+    border-radius: 100%;
+    background-color: transparent;
+}
+
+.catch_green {
+    padding: 25px;
+    border: 2px solid black;
+    border-radius: 100%;
+    background-color: green;   
+}
+
+.springsnap {
+    width: 130px;
+    position: absolute;
+    left: 388px;
+    top: 248px;
+    z-index: 2;
+}
+
+.catch_btn {
+    padding: 27px;
+    border: 2px solid black;
+    border-radius: 100%;
+    position: absolute;
+    left: 408px;
+    top: 476px;
+    background-color: green;
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+}
+
+.catch_btn:hover {
+    background-color: rgb(15, 156, 15);
+}
+
+.catch_star {
+    position: absolute;
+    z-index: 1;
+    width: 255px;
+    left: 333px;
+    top: 183px;
+}
+
+.register_form_title {
+    position: absolute;
+    left: 546px;
+    top: 233px;
+    font-size: 20px;
+}
+
+.register_dinion_form {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    top: 300px;
+    left: 570px;
+}

@@ -1,6 +1,8 @@
 from server_folder import app, db
 from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory
+
 from functions import create_enemy_dinimon, health_check, move_sprite, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack
+from catching import catch_dinimon
 
 from flask import redirect, render_template, request, url_for, session, flash
 from time import sleep
@@ -25,6 +27,7 @@ def start_session():
     session["top"] = 70
     session["sprite_xy"] = 706
 
+    session["catch_try"] = -1
     session["message"] = 'none'
     session["enemy_turn"] = False
     session["area"] = area.area_id
@@ -134,7 +137,6 @@ def move():
     return redirect(url_for('homepage'))
 
 
-
 @app.route('/choose_main_dini', methods=['GET', 'POST'])
 def choose_main_dini():
     dinimon_id = request.form['dinimon']
@@ -188,19 +190,75 @@ def resume_battle():
     return redirect(url_for('homepage'))
 
 
+@app.route('/switch_dinimon', methods=['POST', 'GET'])
+def switch_dinimon():
+
+    session["message"] = 'You switched dinimon! '
+    session.pop("main_dini", None)
+    session["enemy_turn"] = False
+    return redirect(url_for('homepage'))
+
+
 @app.route('/open_inventory', methods=['POST', 'GET'])
 def open_inventory():
-    inventory = Inventory.query.filter(Inventory.player_id == session["player_id"]).all()
-    for i in inventory:
-        print(i.name)
+    inventory_all = Inventory.query.order_by(Inventory.item_id.asc()).all()
+    inventory = []
+    for item in inventory_all:
+        if item not in inventory and item.player_id == session["player_id"]:
+            inventory.append(item)
     return render_template('inventory.html', inventory=inventory)
 
 
 @app.route('/use_item/<item_id>', methods=['POST', 'GET'])
 def use_item(item_id):
-    print(item_id)
+    item = Inventory.query.get(item_id)
+    if 'Springsnap' in item.name:
+        print(f'using:: {item.name}')
+        print(f'Catch Try: {session["catch_try"]}')
+        enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
+        enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
+        width = enemy_dini_dex.width * 4
 
-    return redirect(url_for('open_inventory'))
+        if session["catch_try"] == -1:
+            session["catch_try"] += 1
+            return render_template('catch.html', enemy_dini=enemy_dini_dex, width=width, item=item)
+
+        catch = catch_dinimon(item)
+
+        if catch == True:
+            session["catch_try"] += 1
+
+        if session["catch_try"] == 2:
+            catch = catch_dinimon(item)
+            if item.quantity == 1:
+                db.session.delete(item)
+            else:
+                item.quantity -= 1
+            db.session.commit()
+
+        if catch == False:
+            session["catch_try"] = -1
+            session["enemy_turn"] = True
+            catch = catch_dinimon(item)
+            if item.quantity == 1:
+                db.session.delete(item)
+            else:
+                item.quantity -= 1
+            db.session.commit()
+            session["message"] = f"{enemy_dini_dex.name} broke free! "
+            return redirect(url_for('homepage'))
+
+        return render_template('catch.html', enemy_dini=enemy_dini_dex, width=width, item=item)
+
+    return redirect(url_for('homepage'))
+
+
+@app.route('/collect_dinimon', methods=['POST', 'GET'])
+def collect_dinimon():
+    enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
+    enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
+    width = enemy_dini_dex.width * 4
+    return render_template('collect.html', dinimon=enemy_dini_dex, width=width)
 
 if __name__ == '__main__':
     app.run(debug=True)
