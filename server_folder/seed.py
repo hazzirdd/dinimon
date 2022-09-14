@@ -411,7 +411,7 @@ def create_dinimon():
 
     dinimon_29 = Dinimon(number=29, name='BimBam', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Bimbam.png', type1=12, type2=14, line='BimBim', can_evolve=True, rarity=6, biomes='Grasslands/Mountain', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
-    dinimon_30 = Dinimon(number=30, name='BlamSlam', width=55, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Blamslam.png', type1=12, type2=14, line='BimBim', can_evolve=False, rarity=3, biomes='Grasslands/Mountain', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
+    dinimon_30 = Dinimon(number=30, name='BlamSlam', width=55, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/BlamSlam.png', type1=12, type2=14, line='BimBim', can_evolve=False, rarity=3, biomes='Grasslands/Mountain', health_range='50', energy_range='10-15', possible_moves='Familiar Attack/')
 
     dinimon_31 = Dinimon(number=31, name='Tulil', width=35, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tulil.png', type1=8, type2=14, line='Tulil', can_evolve=True, rarity=15, biomes='Grasslands/Jungle', health_range='50', energy_range='10-15', possible_moves='Growth Attack/')
 
