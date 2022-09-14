@@ -212,6 +212,36 @@ body {
     cursor: pointer;
 }
 
+.controller-container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    position: relative;
+    left: 7px;
+    top: -1px;
+}
+
+.controller-button {
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    padding: 3px;
+    width: 105px;
+    text-align: center;
+    border: 2px solid black;
+}
+
+.controller-button:hover {
+    text-decoration: none;
+    background-color: white;
+    color: red;
+    padding: 3px;
+    width: 105px;
+    text-align: center;
+    border: 2px solid red;
+    cursor: pointer;
+}
+
 .sprite {
     width: 70px;
     height: 70px;
@@ -229,25 +259,25 @@ body {
 .right_exit {
     width: 70px;
     height: 70px;
-    position: relative;   
+    position: absolute;   
 }
 
 .left_exit {
     width: 70px;
     height: 70px;
-    position: relative;   
+    position: absolute;   
 }
 
 .top_exit {
     width: 70px;
     height: 70px;
-    position: relative;   
+    position: absolute;   
 }
 
 .bottom_exit {
     width: 70px;
     height: 70px;
-    position: relative;   
+    position: absolute;   
 }
 
 
@@ -258,6 +288,7 @@ body {
     padding: 3px;
     border: 2px solid black;
     position: absolute;
+    z-index: 5;
 }
 
 .all_inventory_items_container {
@@ -369,4 +400,150 @@ body {
     position: absolute;
     top: -19px;
     left: 98px;
+}
+
+/* DEX */
+.menu_title {
+    position: absolute;
+    font-size: 50px;
+    color: yellow;
+    text-align: center;
+    left: 239px;
+    top: -21px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+}
+
+.dex_screen {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.dex_card_container {
+    width: 100%;
+    height: 100%;
+    top: 78px;
+    min-height: 560px;
+    position: relative;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 110px 110px 110px 110px 110px 110px 110px;
+}
+
+.dex_card {
+    display: flex;
+    width:fit-content;
+    flex-direction:column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.dex_card_box {
+    display: flex;
+    width:fit-content;
+    flex-direction:column;
+    align-items: center;
+    text-align: center;
+}
+
+.dinimon_dex_image {
+    width: 70px;
+}
+
+.dinimon_dex_image_black {
+    width: 70px;
+    filter: brightness(0%);
+}
+
+.dex_details_image {
+    position: absolute;
+    width: 260px;
+    left: 91px;
+    top: 132px;
+}
+
+.dex_details_title {
+    position: absolute;
+    left: 471px;
+    top: 140px;
+    font-size: 50px;
+}
+
+.dex_details_number {
+    position: absolute;
+    left: 523px;
+    top: 158px;
+}
+
+.dex_details_type_container {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    left: 523px;
+    top: 232px;
+}
+
+.dex_details_type {
+    border: 2px solid black;
+    padding: 3px;
+    text-transform: capitalize;
+    width: 64px;
+    text-align: center;
+}
+
+#dex_details_bright {
+    background-color: yellow;
+}
+
+#dex_details_cold {
+    background-color: rgb(100, 171, 225);
+}
+
+#dex_details_shadow {
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+#dex_details_air {
+    background-color: rgb(205, 205, 205);
+}
+
+#dex_details_water {
+    background-color: rgb(24, 33, 218);
+}
+
+#dex_details_electric {
+    background-color: rgb(162, 152, 38);
+}
+
+#dex_details_earth {
+    background-color: rgb(92, 58, 13);
+}
+
+#dex_details_growth {
+    background-color: rgb(21, 104, 19);
+}
+
+#dex_details_burning {
+    background-color: rgb(239, 16, 16);
+}
+
+#dex_details_metal {
+    background-color: rgb(155, 156, 156);
+}
+
+#dex_details_titan {
+    background-color: rgb(15, 207, 233);
+}
+
+#dex_details_toxic {
+    background-color: rgb(45, 224, 38);
+}
+
+#dex_details_familiar {
+    background-color: rgb(226, 125, 97);
 }

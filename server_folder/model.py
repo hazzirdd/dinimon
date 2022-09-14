@@ -135,6 +135,8 @@ class Item(db.Model):
 
 
 class Inventory(db.Model):
+    __tablename__ = 'inventory'
+
     inventory_id = db.Column(db.Integer, primary_key=True)
     player_id = db.Column(db.Integer, db.ForeignKey("players.player_id"))
     item_id = db.Column(db.Integer, db.ForeignKey("items.item_id"))
@@ -143,6 +145,14 @@ class Inventory(db.Model):
     buy_value = db.Column(db.Integer)
     sell_value = db.Column(db.Integer)
     image = db.Column(db.String(255))
+
+
+class Dinidex(db.Model):
+    __tablename__ = 'dinidex'
+
+    dinidex_id = db.Column(db.Integer, primary_key=True)
+    player_id = db.Column(db.Integer, db.ForeignKey("players.player_id"))
+    dinimon_id = db.Column(db.Integer, db.ForeignKey("dinimon.dinimon_id"))
 
 
 

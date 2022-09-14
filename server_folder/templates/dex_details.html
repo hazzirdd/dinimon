@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="screen" style="background-color: #a562d5;">
+    <a href="/open_dinidex" class="inventory_back_button">Back</a>
+
+    <p class="dex_details_number">Dinimon #{{ dinimon.number }}</p>
+    <img class="dex_details_image" src="{{ dinimon.image }}">
+    <p class="dex_details_title">{{ dinimon.name }}</p>
+
+    <div class="dex_details_type_container">
+        <p class="dex_details_type" id="dex_details_{{ type1.type }}">{{ type1.type }}</p>
+        {% if type2.type_id != 14 %}
+        <p class="dex_details_type"  id="dex_details_{{ type2.type }}">{{ type2.type }}</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

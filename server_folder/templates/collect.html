@@ -13,7 +13,7 @@
 
     <form action="/name_new_dinimon" class="register_dinion_form" method="post">
         <input type="hidden" name="new_dini" value="{{ new_dini.captured_dinimon_id }}">
-        <input type="text" name="nickname">
+        <input type="text" name="nickname" placeholder="{{ dinimon.name }}" value="{{ dinimon.name }}">
         <input type="submit" value="Confirm">
     </form>
 </div>

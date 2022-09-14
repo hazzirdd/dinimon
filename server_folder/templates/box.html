@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dex_screen" style="background-color: #66a77f;">
+    <a href="/" class="inventory_back_button">Back</a>
+    <h1 class="menu_title">Captured Dinimon</h1>
+
+    <div class="dex_card_container">
+        {% for dinimon in all_dinimon %}
+        <div class="dex_card_box">
+            <a href=""><img class="dinimon_dex_image" src="{{ dinimon.image }}"></a>
+            <p>{{ dinimon.nickname }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="screen" style="background-color: #337a9a;">
-    <a class="inventory_back_button">Back</a>
+
+    <!-- BATTLE INVENTORY -->
+    {% if 'wild_battle' in session %}
+    <a href="/" class="inventory_back_button">Back</a>
     <div class="all_inventory_items_container">
         {% for item in inventory %}
         <div class="inventory_item_container">
@@ -11,5 +14,22 @@
         </div>
         {% endfor %}
     </div>
+
+
+    <!-- NORMAL INVENTORY -->
+    {% else %}
+    <a href="/" class="inventory_back_button">Back</a>
+    <div class="all_inventory_items_container">
+        {% for item in inventory %}
+        <div class="inventory_item_container">
+            <img class="inventory_item_image" src="{{ item.image }}">
+            <p class="inventory_item_title">{{ item.name }}</p>
+            <p class="inventory_item_title">x{{ item.quantity }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
 </div>
 {% endblock %}

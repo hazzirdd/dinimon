@@ -1,5 +1,5 @@
 from turtle import right
-from model import connect_to_db, db, Area, Event, Type, Dinimon, Player, Captured_Dinimon, Move, Enemy_Dinimon, Item, Inventory
+from model import connect_to_db, db, Area, Event, Type, Dinimon, Player, Captured_Dinimon, Move, Enemy_Dinimon, Item, Inventory, Dinidex
 
 top_exit = "https://storage.cloud.google.com/property-runner/Dinimon/top_exit.png"
 left_exit = "https://storage.cloud.google.com/property-runner/Dinimon/left_exit.png"
@@ -31,6 +31,14 @@ def create_area():
     area10 = Area(biome='Desert', coordinates='5/2', image="https://i.pinimg.com/originals/58/b5/3e/58b53e2ecbbd774cb0688d7993b21df2.jpg")
     area11 = Area(biome='Grasslands', coordinates='3/2', image="https://i.pinimg.com/originals/3d/06/cb/3d06cb30e1186db39f925dcb397406e2.jpg")
     area12 = Area(biome='Grasslands', coordinates='4/2', image="https://i.pinimg.com/originals/16/3a/20/163a208303fdba022a850fc611a15073.jpg")
+    area13 = Area(biome='Desert', coordinates='6/2', image='https://i.pinimg.com/originals/4c/42/b7/4c42b75808f65d867aa45cf0a23f77bf.jpg')
+    area14 = Area(biome='Desert', coordinates='6/3', image='https://i.pinimg.com/originals/51/36/f6/5136f6e2a019cc7920515e54b1780edc.jpg')
+    area15 = Area(biome='Mesa', coordinates='6/4', image='https://i.pinimg.com/originals/cf/31/60/cf316038155b1588719859f75c42f915.jpg')
+    area16 = Area(biome='Mesa', coordinates='7/4', image='https://i.pinimg.com/originals/91/2c/71/912c71ec5f239eaa7a26927cf15583c7.jpg')
+    area17 = Area(biome='Mesa', coordinates='7/5', image='https://i.pinimg.com/originals/e4/7f/0e/e47f0e9edb5e749185d62a93cdc23918.jpg')
+    area18 = Area(biome='Mesa', coordinates='8/5', image='https://i.pinimg.com/originals/ab/a3/37/aba337ee591e78e6e3ad2a108659eaa7.jpg')
+    area19 = Area(biome='Mountain', coordinates='9/5', image='https://i.pinimg.com/originals/bd/86/01/bd8601296abb4c193f2d07b9cc97023a.jpg')
+    area20 = Area(biome='Mountain', coordinates='9/4', image='https://i.pinimg.com/originals/e3/ce/ad/e3cead3cf9f5c62e09a0375a92b6e95f.jpg')
 
     db.session.add(area1)
     db.session.add(area2)
@@ -44,18 +52,26 @@ def create_area():
     db.session.add(area10)
     db.session.add(area11)
     db.session.add(area12)
+    db.session.add(area13)
+    db.session.add(area14)
+    db.session.add(area15)
+    db.session.add(area16)
+    db.session.add(area17)
+    db.session.add(area18)
+    db.session.add(area19)
+    db.session.add(area20)
 
 def create_event():
     print('Events')
     Event.query.delete()
 
     # 1/1
-    event1 = Event(event='top_exit', area_id=1, left_coord=346, top_coord=0, xy=806, image=top_exit)
+    event1 = Event(event='top_exit', area_id=1, left_coord=418, top_coord=0, xy=806, image=top_exit)
     # 2/1
-    event2 = Event(event='top_exit', area_id=2, left_coord=346, top_coord=0, xy=806, image=top_exit)
-    event3 = Event(event='left_exit', area_id=2, left_coord=-148, top_coord=210, xy=500, image=left_exit)
-    event4 = Event(event='right_exit', area_id=2, left_coord=618, top_coord=210, xy=512, image=right_exit)
-    event5 = Event(event='bottom_exit', area_id=2, left_coord=124, top_coord=490, xy=106, image=bottom_exit)
+    event2 = Event(event='top_exit', area_id=2, left_coord=418, top_coord=0, xy=806, image=top_exit)
+    event3 = Event(event='left_exit', area_id=2, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+    event4 = Event(event='right_exit', area_id=2, left_coord=840, top_coord=210, xy=512, image=right_exit)
+    event5 = Event(event='bottom_exit', area_id=2, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
 
     spawner1 = Event(event='dinimon_spawn', area_id=2, left_coord=630, top_coord=280, xy=409, image='none')
     spawner2 = Event(event='dinimon_spawn', area_id=2, left_coord=140, top_coord=210, xy=502, image='none')
@@ -64,9 +80,9 @@ def create_event():
     spawner5 = Event(event='dinimon_spawn', area_id=2, left_coord=770, top_coord=140, xy=611, image='none')
     spawner6 = Event(event='dinimon_spawn', area_id=2, left_coord=280, top_coord=70, xy=704, image='none')
     # 2/2
-    event6 = Event(event='top_exit', area_id=9, left_coord=346, top_coord=0, xy=806, image=top_exit)
-    event7 = Event(event='left_exit', area_id=9, left_coord=-148, top_coord=210, xy=500, image=left_exit)
-    event8 = Event(event='right_exit', area_id=9, left_coord=618, top_coord=210, xy=512, image=right_exit)
+    event6 = Event(event='top_exit', area_id=9, left_coord=418, top_coord=0, xy=806, image=top_exit)
+    event7 = Event(event='left_exit', area_id=9, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+    event8 = Event(event='right_exit', area_id=9, left_coord=840, top_coord=210, xy=512, image=right_exit)
 
     spawner7 = Event(event='dinimon_spawn', area_id=9, left_coord=70, top_coord=420, xy=201, image='none')
     spawner8 = Event(event='dinimon_spawn', area_id=9, left_coord=420, top_coord=420, xy=206, image='none')
@@ -75,57 +91,57 @@ def create_event():
     spawner11 = Event(event='dinimon_spawn', area_id=9, left_coord=630, top_coord=70, xy=709, image='none')
     spawner12 = Event(event='dinimon_spawn', area_id=9, left_coord=700, top_coord=350, xy=310, image='none')
     # 2/0
-    event10 = Event(event='top_exit', area_id=5, left_coord=346, top_coord=0, xy=806, image=top_exit)
-    event11 = Event(event='right_exit', area_id=5, left_coord=618, top_coord=210, xy=512, image=right_exit)
+    event10 = Event(event='top_exit', area_id=5, left_coord=418, top_coord=0, xy=806, image=top_exit)
+    event11 = Event(event='right_exit', area_id=5, left_coord=840, top_coord=210, xy=512, image=right_exit)
 
     spawner13 = Event(event='dinimon_spawn', area_id=5, left_coord=770, top_coord=420, xy=211, image='none')
     spawner14 = Event(event='dinimon_spawn', area_id=5, left_coord=420, top_coord=210, xy=506, image='none')
     spawner15 = Event(event='dinimon_spawn', area_id=5, left_coord=700, top_coord=70, xy=710, image='none')
     # 3/0
-    event12 = Event(event='bottom_exit', area_id=6, left_coord=124, top_coord=490, xy=106, image=bottom_exit)
-    event13 = Event(event='right_exit', area_id=6, left_coord=618, top_coord=210, xy=512, image=right_exit)
+    event12 = Event(event='bottom_exit', area_id=6, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
+    event13 = Event(event='right_exit', area_id=6, left_coord=840, top_coord=210, xy=512, image=right_exit)
 
     spawner16 = Event(event='dinimon_spawn', area_id=6, left_coord=630, top_coord=420, xy=209, image='none')
     spawner17 = Event(event='dinimon_spawn', area_id=6, left_coord=560, top_coord=70, xy=708, image='none')
     spawner41 = Event(event='dinimon_spawn', area_id=6, left_coord=70, top_coord=140, xy=601, image='none', biome="Jungle")
     # 3/1
-    event14 = Event(event='top_exit', area_id=3, left_coord=346, top_coord=0, xy=806, image=top_exit)
-    event15 = Event(event='left_exit', area_id=3, left_coord=-148, top_coord=210, xy=500, image=left_exit)
-    event16 = Event(event='right_exit', area_id=3, left_coord=618, top_coord=210, xy=512, image=right_exit)
-    event17 = Event(event='bottom_exit', area_id=3, left_coord=124, top_coord=490, xy=106, image=bottom_exit)
+    event14 = Event(event='top_exit', area_id=3, left_coord=418, top_coord=0, xy=806, image=top_exit)
+    event15 = Event(event='left_exit', area_id=3, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+    event16 = Event(event='right_exit', area_id=3, left_coord=840, top_coord=210, xy=512, image=right_exit)
+    event17 = Event(event='bottom_exit', area_id=3, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
 
     spawner18 = Event(event='dinimon_spawn', area_id=3, left_coord=140, top_coord=420, xy=202, image='none')
     spawner19 = Event(event='dinimon_spawn', area_id=3, left_coord=770, top_coord=420, xy=211, image='none')
     spawner20 = Event(event='dinimon_spawn', area_id=3, left_coord=700, top_coord=70, xy=710, image='none')
     spawner21 = Event(event='dinimon_spawn', area_id=3, left_coord=70, top_coord=0, xy=801, image='none')
     # 3/2
-    event18 = Event(event='top_exit', area_id=11, left_coord=346, top_coord=0, xy=806, image=top_exit)
-    event19 = Event(event='left_exit', area_id=11, left_coord=-148, top_coord=210, xy=500, image=left_exit)
-    event20 = Event(event='bottom_exit', area_id=11, left_coord=124, top_coord=490, xy=106, image=bottom_exit)
+    event18 = Event(event='top_exit', area_id=11, left_coord=418, top_coord=0, xy=806, image=top_exit)
+    event19 = Event(event='left_exit', area_id=11, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+    event20 = Event(event='bottom_exit', area_id=11, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
 
     spawner22 = Event(event='dinimon_spawn', area_id=11, left_coord=280, top_coord=70, xy=704, image='none')
     spawner23 = Event(event='dinimon_spawn', area_id=11, left_coord=70, top_coord=350, xy=301, image='none')
     spawner24 = Event(event='dinimon_spawn', area_id=11, left_coord=770, top_coord=420, xy=211, image='none')
     spawner25 = Event(event='dinimon_spawn', area_id=11, left_coord=630, top_coord=70, xy=709, image='none')    
     # 4/0
-    event21 = Event(event='right_exit', area_id=7, left_coord=618, top_coord=210, xy=512, image=right_exit)
+    event21 = Event(event='right_exit', area_id=7, left_coord=840, top_coord=210, xy=512, image=right_exit)
 
     spawner26 = Event(event='dinimon_spawn', area_id=7, left_coord=700, top_coord=420, xy=210, image='none')
     spawner27 = Event(event='dinimon_spawn', area_id=7, left_coord=70, top_coord=450, xy=301, image='none')
     spawner28 = Event(event='dinimon_spawn', area_id=7, left_coord=210, top_coord=70, xy=703, image='none')
     spawner29 = Event(event='dinimon_spawn', area_id=7, left_coord=420, top_coord=140, xy=606, image='none')
     # 4/1
-    event22 = Event(event='left_exit', area_id=4, left_coord=-148, top_coord=210, xy=500, image=left_exit)
-    event23 = Event(event='right_exit', area_id=4, left_coord=618, top_coord=210, xy=512, image=right_exit)
-    event24 = Event(event='bottom_exit', area_id=4, left_coord=124, top_coord=490, xy=106, image=bottom_exit) 
+    event22 = Event(event='left_exit', area_id=4, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+    event23 = Event(event='right_exit', area_id=4, left_coord=840, top_coord=210, xy=512, image=right_exit)
+    event24 = Event(event='bottom_exit', area_id=4, left_coord=418, top_coord=490, xy=106, image=bottom_exit) 
 
     spawner30 = Event(event='dinimon_spawn', area_id=4, left_coord=140, top_coord=350, xy=302, image='none')
     spawner31 = Event(event='dinimon_spawn', area_id=4, left_coord=770, top_coord=420, xy=211, image='none')
     spawner32 = Event(event='dinimon_spawn', area_id=4, left_coord=700, top_coord=70, xy=710, image='none')   
     # 4/2
-    event25 = Event(event='top_exit', area_id=12, left_coord=346, top_coord=0, xy=806, image=top_exit)
-    event26 = Event(event='left_exit', area_id=12, left_coord=-148, top_coord=210, xy=500, image=left_exit)
-    event27 = Event(event='bottom_exit', area_id=12, left_coord=124, top_coord=490, xy=106, image=bottom_exit)
+    event40 = Event(event='top_exit', area_id=12, left_coord=418, top_coord=0, xy=806, image=top_exit)
+    event26 = Event(event='left_exit', area_id=12, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+    event27 = Event(event='bottom_exit', area_id=12, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
 
     spawner33 = Event(event='dinimon_spawn', area_id=12, left_coord=210, top_coord=350, xy=303, image='none')
     spawner34 = Event(event='dinimon_spawn', area_id=12, left_coord=210, top_coord=70, xy=703, image='none')
@@ -133,12 +149,50 @@ def create_event():
     spawner36 = Event(event='dinimon_spawn', area_id=12, left_coord=770, top_coord=420, xy=211, image='none')
     
     # 5/2
-    event28 = Event(event='bottom_exit', area_id=10, left_coord=124, top_coord=490, xy=106, image=bottom_exit)
+    event28 = Event(event='bottom_exit', area_id=10, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
+    event39 = Event(event='top_exit', area_id=10, left_coord=418, top_coord=0, xy=806, image=top_exit)
 
     spawner37 = Event(event='dinimon_spawn', area_id=10, left_coord=770, top_coord=280, xy=411, image='none', biome="Desert")
     spawner38 = Event(event='dinimon_spawn', area_id=10, left_coord=700, top_coord=70, xy=710, image='none', biome="Desert")
     spawner39 = Event(event='dinimon_spawn', area_id=10, left_coord=210, top_coord=140, xy=603, image='none', biome="Desert")
     spawner40 = Event(event='dinimon_spawn', area_id=10, left_coord=70, top_coord=350, xy=301, image='none', biome="Desert")
+
+    # 6/2
+    event29 = Event(event='bottom_exit', area_id=13, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
+    event30 = Event(event='right_exit', area_id=13, left_coord=840, top_coord=210, xy=512, image=right_exit)
+ 
+
+    # 6/3
+    event31 = Event(event='right_exit', area_id=14, left_coord=840, top_coord=210, xy=512, image=right_exit)
+    event32 = Event(event='left_exit', area_id=14, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+
+    # 6/4
+    event33 = Event(event='left_exit', area_id=15, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+    event34 = Event(event='top_exit', area_id=15, left_coord=418, top_coord=0, xy=806, image=top_exit)
+
+
+    # 7/4
+    event35 = Event(event='bottom_exit', area_id=16, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
+    event36 = Event(event='right_exit', area_id=16, left_coord=840, top_coord=210, xy=512, image=right_exit)
+
+
+    # 7/5
+    event37 = Event(event='left_exit', area_id=17, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+    event38 = Event(event='top_exit', area_id=17, left_coord=418, top_coord=0, xy=806, image=top_exit)
+
+
+    # 8/5
+    event28 = Event(event='bottom_exit', area_id=18, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
+    event25 = Event(event='top_exit', area_id=18, left_coord=418, top_coord=0, xy=806, image=top_exit)
+
+    # 9/5
+    event28 = Event(event='bottom_exit', area_id=19, left_coord=418, top_coord=490, xy=106, image=bottom_exit)
+    event37 = Event(event='left_exit', area_id=19, left_coord=-4, top_coord=210, xy=500, image=left_exit)
+
+
+    # 9/4
+    event41 = Event(event='right_exit', area_id=20, left_coord=840, top_coord=210, xy=512, image=right_exit)
+
 
     db.session.add(event1)
     db.session.add(event2)
@@ -167,6 +221,20 @@ def create_event():
     db.session.add(event26)
     db.session.add(event27)
     db.session.add(event28)
+    db.session.add(event29)
+    db.session.add(event30)
+    db.session.add(event31)
+    db.session.add(event32)
+    db.session.add(event33)
+    db.session.add(event34)
+    db.session.add(event35)
+    db.session.add(event36)
+    db.session.add(event37)
+    db.session.add(event38)
+    db.session.add(event39)
+    db.session.add(event40)
+    db.session.add(event41)
+
 
     db.session.add(spawner1)
     db.session.add(spawner2)
@@ -301,7 +369,7 @@ def create_dinimon():
 
     dinimon_8 = Dinimon(number=8, name='Ballrock', width=60, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Ballrock.png', type1=7, type2=14, line='Rockball', can_evolve=True, rarity=6, biomes='Grasslands/Desert/Mountain', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
     
-    dinimon_9 = Dinimon(number=9, name='Riprock', width=65, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Ruprock.png', type1=7, type2=14, line='Rockball', can_evolve=False, rarity=3, biomes='Mountain', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
+    dinimon_9 = Dinimon(number=9, name='Riprock', width=65, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Riprock.png', type1=7, type2=14, line='Rockball', can_evolve=False, rarity=3, biomes='Mountain', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
     dinimon_10 = Dinimon(number=10, name='Spitlick', width=55, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Spitlick.png', type1=5, type2=14, line='Spitlick', can_evolve=True, rarity=15, biomes='Grasslands/Swamp/Beach/Jungle', health_range='50', energy_range='10-15', possible_moves='Water Attack/')
 
@@ -385,7 +453,7 @@ def create_dinimon():
 
     dinimon_50 = Dinimon(number=50, name='Danglure', width=70, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Danglure.png', type1=1, type2=5, line='Glowlure', can_evolve=True, rarity=6, biomes='Cavelake/Ocean', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')
 
-    dinimon_51 = Dinimon(number=51, name='Fanglure', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Danglure.png', type1=1, type2=5, line='Glowlure', can_evolve=False, rarity=2, biomes='Cavelake/Ocean', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')
+    dinimon_51 = Dinimon(number=51, name='Fanglure', width=90, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Fanglure.png', type1=1, type2=5, line='Glowlure', can_evolve=False, rarity=2, biomes='Cavelake/Ocean', health_range='50', energy_range='10-15', possible_moves='Bright Attack/')
 
     dinimon_52 = Dinimon(number=52, name='Claymate', width=40, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Claymate.png', type1=7, type2=5, line='Claymate', can_evolve=True, rarity=16, biomes='Mesa/Swamp', health_range='50', energy_range='10-15', possible_moves='Earth Attack/')
 
@@ -552,6 +620,19 @@ def create_captured_dinimon():
     db.session.add(dinimon3)
 
 
+def create_dinidex():
+    print('Dinidex')
+    Dinidex.query.delete()
+
+    entry1 = Dinidex(player_id=1, dinimon_id=79)
+    entry2 = Dinidex(player_id=1, dinimon_id=78)
+    entry3 = Dinidex(player_id=1, dinimon_id=56)
+
+    db.session.add(entry1)
+    db.session.add(entry2)
+    db.session.add(entry3)
+
+
 def create_item():
     print('Item')
     Item.query.delete()
@@ -600,5 +681,6 @@ if __name__ == '__main__':
     create_captured_dinimon()
     create_item()
     create_inventory()
+    create_dinidex()
 
     db.session.commit()

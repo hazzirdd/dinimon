@@ -1,5 +1,5 @@
 from server_folder import app, db
-from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory
+from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory, Dinidex, Type
 
 from functions import create_enemy_dinimon, health_check, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack
 from catching import add_dini_to_player, catch_dinimon
@@ -13,7 +13,9 @@ def start_session():
     players_dinimon = Captured_Dinimon.query.all()
     for tamed_dini in players_dinimon:
         tamed_dini.health = tamed_dini.max_health
-        tamed_dini.in_party = True
+        tamed_dini.in_party = False
+        if tamed_dini.nickname == 'Rexy' or tamed_dini.nickname == 'Goobs' or tamed_dini.nickname == 'Slabcanic':
+            tamed_dini.in_party = True
 
     Enemy_Dinimon.query.delete()
     dinimon = Event.query.filter(Event.event == 'dinimon').all()
@@ -267,11 +269,53 @@ def collect_dinimon():
 def name_new_dinimon():
     captured_dini_id = request.form['new_dini']
     nickname = request.form['nickname']
-    enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
-    enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
-    nickname_dinimon(nickname, enemy_dini_dex, captured_dini_id)
+    nickname_dinimon(nickname, captured_dini_id)
 
     return redirect(url_for('end_battle'))
+
+
+@app.route('/open_dinidex', methods=['POST', 'GET'])
+def open_dinidex():
+    registered_dinimon = []
+    dinidex = {}
+    registered_dinimon_ids = Dinidex.query.filter(Dinidex.player_id == session["player_id"]).all()
+    all_dinimon = Dinimon.query.all()
+
+    for id in registered_dinimon_ids:
+        registered_dinimon.append(id.dinimon_id)
+
+    for dinimon in all_dinimon:
+        if dinimon.dinimon_id in registered_dinimon:
+            dinidex[dinimon.dinimon_id] = {
+                "name": dinimon.name,
+                "number": dinimon.number,
+                "image": dinimon.image
+            }
+        else:
+            dinidex[dinimon.dinimon_id] = {
+                "name": '???',
+                "number": dinimon.number,
+                "image": dinimon.image
+            }
+
+    return render_template('dinidex.html', dinidex=dinidex, all_dinimon=all_dinimon)
+
+
+@app.route('/open_dinidex/<dinimon_id>', methods=['POST', 'GET'])
+def dinidex_detials(dinimon_id):
+    dinimon = Dinimon.query.get(dinimon_id)
+    type1 = Type.query.get(dinimon.type1)
+    type2 = Type.query.get(dinimon.type2)
+    return render_template('dex_details.html', dinimon=dinimon, type1=type1, type2=type2, )
+
+
+@app.route('/open_box', methods=['POST', 'GET'])
+def open_box():
+
+    all_dinimon = Captured_Dinimon.query.filter(Captured_Dinimon.player_id == session["player_id"])
+
+    return render_template('box.html', all_dinimon=all_dinimon)
+
 
 
 if __name__ == '__main__':

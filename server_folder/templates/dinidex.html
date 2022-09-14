@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dex_screen" style="background-color: #a562d5;">
+    <a href="/" class="inventory_back_button">Back</a>
+    <h1 class="menu_title" style="left:370px;">Dinidex</h1>
+
+    <div class="dex_card_container">
+        {% for dinimon in all_dinimon %}
+        <div class="dex_card">
+            <p>#{{ dinimon.number }}</p>
+            {% if dinidex[dinimon.dinimon_id]['name'] == '???' %}
+            <a href="/open_dinidex"><img class="dinimon_dex_image_black" src="{{ dinidex[dinimon.dinimon_id]['image'] }}"></a>
+            {% else %}
+            <a href="/open_dinidex/{{ dinimon.dinimon_id }}"><img class="dinimon_dex_image" src="{{ dinidex[dinimon.dinimon_id]['image'] }}"></a>
+            {% endif %}
+            <p>{{ dinidex[dinimon.dinimon_id]['name'] }}</p>
+        </div>
+        {% endfor %}
+       
+    </div>
+
+</div>
+{% endblock %}
