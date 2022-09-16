@@ -4,11 +4,29 @@
     <a href="/" class="inventory_back_button">Back</a>
     <h1 class="menu_title">Captured Dinimon</h1>
 
-    <div class="dex_card_container">
+    <p class="party_title"> - Party -</p>
+    <div class="party_container">
+        {% for dini in all_party %}
+        <div class="dex_card_box">
+            <a href="/open_box/{{ dini.captured_dinimon_id }}"><img class="dinimon_dex_image" src="{{ party[dini.captured_dinimon_id]['image'] }}"></a>
+            <p>{{ party[dini.captured_dinimon_id]['nickname'] }}</p>
+            <a class="box_party_btn" href="/remove_from_party/{{ dini.captured_dinimon_id }}">Remove</a>
+            <div class="box_health_bar_container">
+                <div class="health_bar" style="position: relative;width: {{ party[dini.captured_dinimon_id]['health'] }}%;"></div>
+            </div>
+            <div class="energy_bar_container">
+                <div class="energy_bar" style="position: relative;width: {{ party[dini.captured_dinimon_id]['energy'] }}%;"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="dex_card_container" style="top: 343px;background-color: #66a77f;">
         {% for dinimon in all_dinimon %}
         <div class="dex_card_box">
-            <a href=""><img class="dinimon_dex_image" src="{{ dinimon.image }}"></a>
+            <a href="/open_box/{{ dinimon.captured_dinimon_id }}"><img class="dinimon_dex_image" src="{{ dinimon.image }}"></a>
             <p>{{ dinimon.nickname }}</p>
+            <a class="box_party_btn" href="/add_to_party/{{ dinimon.captured_dinimon_id }}">Add</a><br>
         </div>
         {% endfor %}
     </div>

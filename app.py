@@ -1,7 +1,8 @@
+from re import T
 from server_folder import app, db
 from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory, Dinidex, Type
 
-from functions import create_enemy_dinimon, health_check, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack
+from functions import create_enemy_dinimon, health_check, manage_party, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack, get_dini_energy
 from catching import add_dini_to_player, catch_dinimon
 
 from flask import redirect, render_template, request, url_for, session, flash
@@ -16,7 +17,7 @@ def start_session():
         tamed_dini.in_party = False
         if tamed_dini.nickname == 'Rexy' or tamed_dini.nickname == 'Goobs' or tamed_dini.nickname == 'Slabcanic':
             tamed_dini.in_party = True
-
+    Dinidex.query.delete()
     Enemy_Dinimon.query.delete()
     dinimon = Event.query.filter(Event.event == 'dinimon').all()
     for dini in dinimon:
@@ -62,16 +63,19 @@ def homepage():
         print('MAIN DINI:', main_dini.nickname)
         main_dini_moves = setup_dini_moves(main_dini)
         main_dini_health = get_dini_health(main_dini)
+        main_dini_energy = get_dini_energy(main_dini)
     else:
         main_dini = 'none'
         main_dini_moves = 'none'
         main_dini_health = 'none'
+        main_dini_energy = 'none'
 
     if 'enemy_dini' in session:
         enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
         enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
         enemy_dini_moves = setup_dini_moves(enemy_dini)
         enemy_dini_health = get_dini_health(enemy_dini)
+        enemy_dini_energy = get_dini_energy(enemy_dini)
 
         if session['enemy_turn'] == True:
             move = run_enemy_attack(session["main_dini"], enemy_dini)
@@ -89,8 +93,10 @@ def homepage():
         enemy_dini = 'none'
         enemy_dini_moves = 'none'
         enemy_dini_health = 'none'
+        enemy_dini_energy = 'none'
+        enemy_dini_dex = 'none'
 
-    return render_template('homepage.html', left=session["left"], top=session["top"],arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events, wild_battle=wild_battle, party=party, main_dini=main_dini, main_dini_moves=main_dini_moves, enemy_dini_moves=enemy_dini_moves, main_dini_health=main_dini_health, enemy_dini_health=enemy_dini_health, message=session["message"])
+    return render_template('homepage.html', left=session["left"], top=session["top"],arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events, wild_battle=wild_battle, party=party, main_dini=main_dini, main_dini_moves=main_dini_moves, enemy_dini_moves=enemy_dini_moves, main_dini_health=main_dini_health, enemy_dini_health=enemy_dini_health, main_dini_energy=main_dini_energy, enemy_dini_energy=enemy_dini_energy, enemy_dini_dex=enemy_dini_dex, message=session["message"], enemy_dini=enemy_dini)
 
 
 @app.route('/move', methods=['POST'])
@@ -226,13 +232,13 @@ def use_item(item_id):
             session["catch_try"] += 1
             return render_template('catch.html', enemy_dini=enemy_dini_dex, width=width, item=item)
 
-        catch = catch_dinimon(item)
+        catch = catch_dinimon(item, enemy_dini_dex)
 
         if catch == True:
             session["catch_try"] += 1
 
         if session["catch_try"] == 2:
-            catch = catch_dinimon(item)
+            catch = catch_dinimon(item, enemy_dini_dex)
             if item.quantity == 1:
                 db.session.delete(item)
             else:
@@ -242,7 +248,7 @@ def use_item(item_id):
         if catch == False:
             session["catch_try"] = -1
             session["enemy_turn"] = True
-            catch = catch_dinimon(item)
+            catch = catch_dinimon(item, enemy_dini_dex)
             if item.quantity == 1:
                 db.session.delete(item)
             else:
@@ -260,18 +266,40 @@ def use_item(item_id):
 def collect_dinimon():
     enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
     enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
+    discovered_dinimon = Dinidex.query.filter(Dinidex.player_id == session["player_id"]).all()
+    discovered_ids = []
+    is_discovered = True
+    for i in discovered_dinimon:
+        discovered_ids.append(i.dinimon_id)
+
+    print(discovered_ids)
+    for dinimon_id in discovered_ids:
+        print(dinimon_id, '==', enemy_dini.dinimon_id)
+        if dinimon_id == enemy_dini.dinimon_id:
+            is_discovered = False
+
+    print('Discovered:', is_discovered)
     width = enemy_dini_dex.width * 4
     new_dini = add_dini_to_player(enemy_dini, enemy_dini_dex, session["player_id"])
-    return render_template('collect.html', dinimon=enemy_dini_dex, width=width, new_dini=new_dini)
+    return render_template('collect.html', dinimon=enemy_dini_dex, width=width, new_dini=new_dini, is_discovered=is_discovered)    
 
 
 @app.route('/name_new_dinimon', methods=['POST', 'GET'])
 def name_new_dinimon():
     captured_dini_id = request.form['new_dini']
     nickname = request.form['nickname']
+
+    try:
+        box = request.form['box']
+    except:
+        box = 'none'
+
     nickname_dinimon(nickname, captured_dini_id)
 
-    return redirect(url_for('end_battle'))
+    if box == 'none':
+        return redirect(url_for('end_battle'))
+    else:
+        return redirect(url_for('open_box'))
 
 
 @app.route('/open_dinidex', methods=['POST', 'GET'])
@@ -311,11 +339,56 @@ def dinidex_detials(dinimon_id):
 
 @app.route('/open_box', methods=['POST', 'GET'])
 def open_box():
+    all_party = Captured_Dinimon.query.filter(
+        Captured_Dinimon.in_party == True,
+        Captured_Dinimon.player_id == session["player_id"]
+        )
 
-    all_dinimon = Captured_Dinimon.query.filter(Captured_Dinimon.player_id == session["player_id"])
+    party = {}
+    for dini in all_party:
+        health = get_dini_health(dini)
+        energy = get_dini_energy(dini)
+        party[dini.captured_dinimon_id] = {
+            "image": dini.image,
+            "nickname": dini.nickname,
+            "health": health,
+            "energy": energy
+        }
 
-    return render_template('box.html', all_dinimon=all_dinimon)
+    all_dinimon = Captured_Dinimon.query.filter(
+        Captured_Dinimon.in_party == False,
+        Captured_Dinimon.player_id == session["player_id"]
+        )
 
+    return render_template('box.html', all_dinimon=all_dinimon, party=party, all_party=all_party)
+
+
+@app.route('/open_box/<captured_dinimon_id>', methods=['POST', 'GET'])
+def box_details(captured_dinimon_id):
+    dinimon = Captured_Dinimon.query.get(captured_dinimon_id)
+    dinimon_dex = Dinimon.query.get(dinimon.dinimon_id)
+    type1 = Type.query.get(dinimon_dex.type1)
+    type2 = Type.query.get(dinimon_dex.type2)
+    move1 = Move.query.get(dinimon.move1)
+    move2 = Move.query.get(dinimon.move2)
+    move3 = Move.query.get(dinimon.move3)
+    move4 = Move.query.get(dinimon.move4)
+    health = get_dini_health(dinimon)
+    return render_template('box_details.html', dinimon=dinimon, type1=type1, type2=type2, dinimon_dex=dinimon_dex, move1=move1, move2=move2, move3=move3, move4=move4, move1_type=Type.query.get(move1.type_id), move2_type=Type.query.get(move2.type_id), move3_type=Type.query.get(move3.type_id), move4_type=Type.query.get(move4.type_id), health=health)
+
+
+@app.route('/remove_from_party/<captured_dinimon_id>', methods=['POST', 'GET'])
+def remove_from_party(captured_dinimon_id):
+    dinimon = Captured_Dinimon.query.get(captured_dinimon_id)
+    manage_party(dinimon, 'remove', session['player_id'])
+    return redirect(url_for('open_box'))
+
+
+@app.route('/add_to_party/<captured_dinimon_id>', methods=['POST', 'GET'])
+def add_to_party(captured_dinimon_id):
+    dinimon = Captured_Dinimon.query.get(captured_dinimon_id)
+    manage_party(dinimon, 'add', session['player_id'])
+    return redirect(url_for('open_box'))
 
 
 if __name__ == '__main__':

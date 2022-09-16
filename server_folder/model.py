@@ -1,11 +1,11 @@
 ## RUN THE APP
-from server_folder import db
+# from server_folder import db
 
 ## SEED DATABASE
-# from flask_sqlalchemy import SQLAlchemy
-# from flask import Flask
-# app = Flask(__name__)
-# db = SQLAlchemy()
+from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+app = Flask(__name__)
+db = SQLAlchemy()
 
 class Player(db.Model):
     __tablename__ = 'players'
@@ -82,6 +82,7 @@ class Dinimon(db.Model):
     health_range = db.Column(db.String(255), nullable=False)
     energy_range = db.Column(db.String(255), nullable=False)
     possible_moves = db.Column(db.String(255), nullable=False)
+    catchability = db.Column(db.Integer, nullable=False)
 
 
 class Captured_Dinimon(db.Model):
@@ -118,6 +119,7 @@ class Enemy_Dinimon(db.Model):
     move4 = db.Column(db.Integer, db.ForeignKey("moves.move_id"))
     type1 = db.Column(db.Integer, db.ForeignKey("types.type_id"))
     type2 = db.Column(db.Integer, db.ForeignKey("types.type_id"))
+    energy = db.Column(db.Integer)
     max_energy = db.Column(db.Integer)
     health = db.Column(db.Integer)
     max_health = db.Column(db.Integer)
@@ -129,9 +131,10 @@ class Item(db.Model):
 
     item_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
-    image = db.Column(db.String(255))
     buy_value = db.Column(db.Integer)
     sell_value = db.Column(db.Integer)
+    image = db.Column(db.String(255))
+    catch_rate = db.Column(db.Integer)
 
 
 class Inventory(db.Model):
@@ -145,6 +148,7 @@ class Inventory(db.Model):
     buy_value = db.Column(db.Integer)
     sell_value = db.Column(db.Integer)
     image = db.Column(db.String(255))
+    catch_rate = db.Column(db.Integer)
 
 
 class Dinidex(db.Model):

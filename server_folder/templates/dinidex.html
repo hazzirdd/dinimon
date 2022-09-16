@@ -9,7 +9,7 @@
         <div class="dex_card">
             <p>#{{ dinimon.number }}</p>
             {% if dinidex[dinimon.dinimon_id]['name'] == '???' %}
-            <a href="/open_dinidex"><img class="dinimon_dex_image_black" src="{{ dinidex[dinimon.dinimon_id]['image'] }}"></a>
+            <img class="dinimon_dex_image_black" src="{{ dinidex[dinimon.dinimon_id]['image'] }}">
             {% else %}
             <a href="/open_dinidex/{{ dinimon.dinimon_id }}"><img class="dinimon_dex_image" src="{{ dinidex[dinimon.dinimon_id]['image'] }}"></a>
             {% endif %}

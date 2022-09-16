@@ -2,10 +2,12 @@
 {% block content %}
 <div class="screen" style="background-image: url('https://static.vecteezy.com/system/resources/previews/002/395/537/original/abstract-blue-and-white-geometric-background-free-vector.jpg');">
 
-
-    <!-- IF STATEMENT TO SEE IF IT HAS BEEN CAPTURED BEFORE -->
-    <p class="new_dinimon_message">{{ dinimon.name }} has been added to the Dinidex!</p>
-    <!-- END IF -->
+    <p class="new_dinimon_message">Yahoo! You caught a {{ dinimon.name }}!</p>
+    {% if is_discovered == True %}
+    <p class="catch_text">{{ dinimon.name }} has been added to the dinidex!</p>
+    {% elif is_discovered == False %}
+    <p class="catch_text">Another one for the books!</p>
+    {% endif %}
 
     <img style="width:{{ width }}px;left:17px;top:110px;position: absolute;" src="{{ dinimon.image }}">
 

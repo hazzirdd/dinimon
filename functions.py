@@ -1,3 +1,4 @@
+from audioop import add
 import random
 
 from server_folder import db
@@ -168,11 +169,20 @@ def create_enemy_dinimon(dinimon_id):
     else:
         move4_id = 14
 
-    enemy_dinimon = Enemy_Dinimon(dinimon_id=dinimon_id, move1=move1_id, move2=move2_id, move3=move3_id, move4=move4_id, type1=dinimon.type1, type2=dinimon.type2,max_energy=20, health=15, max_health=15, level=1)
+    health = random_from_range(dinimon.health_range)
+    energy = random_from_range(dinimon.energy_range)
+
+    enemy_dinimon = Enemy_Dinimon(dinimon_id=dinimon_id, move1=move1_id, move2=move2_id, move3=move3_id, move4=move4_id, type1=dinimon.type1, type2=dinimon.type2, energy=0, max_energy=energy, health=health, max_health=health, level=1)
     db.session.add(enemy_dinimon)
     db.session.commit()
 
     return enemy_dinimon.enemy_dinimon_id
+
+
+def random_from_range(range):
+    low, high = range.split('-')
+    result = random.randint(int(low), int(high))
+    return result
 
 def get_dini_health(dinimon):
     health = dinimon.health
@@ -180,6 +190,15 @@ def get_dini_health(dinimon):
     decimal = health/max_health
     dini_health = decimal*100
     return dini_health
+
+
+def get_dini_energy(dinimon):
+    energy = dinimon.energy
+    max_energy = dinimon.max_energy
+    decimal = energy/max_energy
+    dini_energy = decimal*100
+    return dini_energy
+
 
 def run_attack_on_enemy(move_id, enemy_dinimon_id):
     print('ATTACK ON ENEMY::::________________________________________________________________')
@@ -261,4 +280,24 @@ def health_check(main_dini, enemy_dini):
 def nickname_dinimon(nickname, captured_dini_id):
     new_dini = Captured_Dinimon.query.get(captured_dini_id)
     new_dini.nickname = nickname
+    db.session.commit()
+
+
+def manage_party(dinimon, add_remove, player_id):
+    party_data = Captured_Dinimon.query.filter(
+        Captured_Dinimon.in_party == True,
+        Captured_Dinimon.player_id == player_id
+        )
+    party = []
+    for dini in party_data:
+        party.append(dini)
+
+    if add_remove == 'add':
+        if len(party) < 6:
+            dinimon.in_party = True
+
+    elif add_remove == 'remove':
+        if len(party) > 1:
+            dinimon.in_party = False
+
     db.session.commit()

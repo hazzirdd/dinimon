@@ -23,8 +23,15 @@
         <div class="battle_page">
             <img class="enemy_dinimon" src="{{ wild_battle.image }}">
         </div>
-        <div class="enemy_health_bar_container">
+        <p class="battle_name_title" style="top:380px;left:728px;">Wild {{ enemy_dini_dex.name }}</p>
+        <div class="enemy_health_bar_container" style="position:absolute; top:427px; left:728px;">
             <div class="health_bar" style="width: {{ enemy_dini_health }}%;">
+                <p class="health_bar_numbers" style="color: #0a4208;top:-17px;">{{ enemy_dini.health }} / {{ enemy_dini.max_health }}</p>
+            </div>
+        </div>
+        <div class="energy_bar_container" style="position:absolute;top: 444px;left: 728px;width: 170px;">
+            <div class="energy_bar" style="width:{{ main_dini_energy }}%;">
+                <p class="health_bar_numbers" style="color: #424208;"> - / {{ enemy_dini.max_energy }}</p>
             </div>
         </div>
 
@@ -43,17 +50,24 @@
             {% if session['message'] != 'none' %}
             <div class="alert_attack">
                 {{ message }}
-              </div>
+            </div>
               {% endif %}
+            <p class="battle_name_title" style="top:380px;left:31px;">{{ main_dini.nickname }}</p>
             <div class="main_health_bar_container">
                 <div class="health_bar" style="width:{{ main_dini_health }}%;">
+                    <p class="health_bar_numbers" style="color: #0a4208;top:-17px;">{{ main_dini.health }} / {{ main_dini.max_health }}</p>
+                </div>
+            </div>
+            <div class="energy_bar_container" style="position:absolute;width: 170px;top:444px;left:30px">
+                <div class="energy_bar" style="width:{{ main_dini_energy }}%;">
+                    <p class="health_bar_numbers" style="color: #424208;top:-17px;">{{ main_dini.energy }} / {{ main_dini.max_energy }}</p>
                 </div>
             </div>
             <div class="battle_bottom_banner" style="background-color: brown;">
                 {% for move in main_dini_moves %}
                 <form action="/attack_enemy" method="POST">
                     <input type="hidden" name="move" value="{{ move.move_id }}">
-                    <input class="battle_banner_button" type="submit" value="Use {{ move.move }}">
+                    <input class="battle_banner_button" type="submit" value="{{ move.move }} ({{ move.energy_cost }}e)">
                 </form>
                 {% endfor %}
                 <a href="/open_inventory" class="battle_banner_button">Inventory</a>

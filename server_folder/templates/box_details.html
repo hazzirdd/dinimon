@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="screen" style="background-color: #66a77f;">
+
+    <a href="/open_box" class="inventory_back_button">Back</a>
+
+    <img class="dex_details_image" src="{{ dinimon.image }}">
+        <p class="dex_details_number" style="width:auto;top: 1px;left: 668px;">Dinimon #{{ dinimon_dex.number }}</p>
+        <p class="dex_details_title" style="top:-21px;left:630px">{{ dinimon.nickname }}</p>
+        <div class="dex_details_type_container" style="top:82px;left:645px">
+            <p class="dex_details_type" id="dex_details_{{ type1.type }}">{{ type1.type }}</p>
+            {% if type2.type_id != 14 %}
+            <p class="dex_details_type"  id="dex_details_{{ type2.type }}">{{ type2.type }}</p>
+            {% endif %}
+        </div>
+
+        <div style="position:absolute;top:357px;left:107px;">
+            <div class="box_health_bar_container"  style="width:200px;height:16px;" style="width:200px;">
+                <div class="health_bar" style="position: relative;width:{{ health }}%;top:-16px;">
+                    <p>{{ dinimon.health }} / {{ dinimon.max_health }}</p>
+                </div>
+            </div>
+            <br>
+            <div class="energy_bar_container" style="width:200px;height:16px;">
+                <div class="energy_bar" style="position: relative;width:100%;top:-16px;">
+                    <p>{{ dinimon.energy }} / {{ dinimon.max_energy }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="box_moves_container">
+            <p style="font-weight:bold;text-decoration:underline">MOVES</p>
+            <p>{{ move1.move }} - {{ move1.damage }} - {{ move1.energy_cost }} -  <span id="dex_details_{{ move1_type.type }}" style="padding:2px;text-transform:capitalize;border: 2px dotted black;">{{ move1_type.type }}</span></p>
+            <p>{{ move2.move }} - {{ move2.damage }} - {{ move2.energy_cost }} -  <span id="dex_details_{{ move2_type.type }}" style="padding:2px;text-transform:capitalize;border: 2px dotted black;">{{ move2_type.type }}</p>
+            <p>{{ move3.move }} - {{ move3.damage }} - {{ move3.energy_cost }} -  <span id="dex_details_{{ move3_type.type }}" style="padding:2px;text-transform:capitalize;border: 2px dotted black;">{{ move3_type.type }}</p>
+            <p>{{ move4.move }} - {{ move4.damage }} - {{ move4.energy_cost }} -  <span id="dex_details_{{ move4_type.type }}" style="padding:2px;text-transform:capitalize;border: 2px dotted black;">{{ move4_type.type }}</p>
+        </div>
+
+        <form class="nickname_form" action="/name_new_dinimon" method="post">
+            <p style="font-weight:bold;text-decoration:underline">Change Nickname</p>
+            <input type="hidden" name="new_dini" value="{{ dinimon.captured_dinimon_id }}" />
+            <input type="hidden" name="box" value="box" />
+            <input type="text" name="nickname" value="{{ dinimon.nickname }}" />
+            <input type="submit" value="Change Nickname" />
+        </form>
+</div>
+{% endblock %}
