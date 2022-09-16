@@ -184,6 +184,7 @@ def random_from_range(range):
     result = random.randint(int(low), int(high))
     return result
 
+
 def get_dini_health(dinimon):
     health = dinimon.health
     max_health = dinimon.max_health
@@ -198,6 +199,14 @@ def get_dini_energy(dinimon):
     decimal = energy/max_energy
     dini_energy = decimal*100
     return dini_energy
+
+
+def get_dini_xp(dinimon):
+    xp = dinimon.experience
+    max_experience = dinimon.max_experience
+    decimal = xp/max_experience
+    dini_xp = decimal*100
+    return dini_xp
 
 
 def run_attack_on_enemy(move_id, enemy_dinimon_id, dinimon):
@@ -302,4 +311,37 @@ def manage_party(dinimon, add_remove, player_id):
         if len(party) > 1:
             dinimon.in_party = False
 
+    db.session.commit()
+
+
+def collect_wild_battle_xp(player_id, enemy_dini, main_dini):
+    main_xp = enemy_dini.catchability * 10
+    party_xp = enemy_dini.catchability * 5
+    main_dini.experience += main_xp
+    party = Captured_Dinimon.query.filter(
+        Captured_Dinimon.in_party == True,
+        Captured_Dinimon.player_id == player_id,
+        Captured_Dinimon.captured_dinimon_id != main_dini.captured_dinimon_id
+    )
+    for dinimon in party:
+        dinimon.experience += party_xp
+    print(f"{main_xp} earned!")
+    db.session.commit()
+
+def catch_xp(player_id, enemy_dini, main_dini, is_discovered):
+    if is_discovered == True:
+        main_xp = enemy_dini.catchability * 15
+        party_xp = enemy_dini.catchability * 6
+    else:
+        main_xp = enemy_dini.catchability * 8
+        party_xp = enemy_dini.catchability * 4
+    main_dini.experience += main_xp
+    party = Captured_Dinimon.query.filter(
+        Captured_Dinimon.in_party == True,
+        Captured_Dinimon.player_id == player_id,
+        Captured_Dinimon.captured_dinimon_id != main_dini.captured_dinimon_id
+    )
+    print(f"{main_xp} earned!")
+    for dinimon in party:
+        dinimon.experience += party_xp
     db.session.commit()

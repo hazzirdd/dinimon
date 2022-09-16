@@ -2,7 +2,7 @@ from re import T
 from server_folder import app, db
 from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory, Dinidex, Type
 
-from functions import create_enemy_dinimon, health_check, manage_party, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack, get_dini_energy
+from functions import create_enemy_dinimon, health_check, manage_party, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack, get_dini_energy, get_dini_xp, catch_xp, collect_wild_battle_xp
 from catching import add_dini_to_player, catch_dinimon
 
 from flask import redirect, render_template, request, url_for, session, flash
@@ -163,10 +163,12 @@ def attack_enemy():
     run_attack_on_enemy(move_id, session["enemy_dini"], dinimon)
     health_status = health_check(dinimon, enemy_dini)
     enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
+    main_dini = Captured_Dinimon.query.get(session["main_dini"])
 
     if health_status == 'enemy_dini_dead':
         session["message"] = f'{enemy_dini_dex.name} has been murdered!'
         session["battle_end"] = True
+        collect_wild_battle_xp(session["player_id"], enemy_dini_dex, main_dini)
         return render_template('end_battle.html', dead_enemy=enemy_dini_dex, dead_main_dini='none')
 
     session["enemy_turn"] = True
@@ -265,6 +267,7 @@ def use_item(item_id):
 
 @app.route('/collect_dinimon', methods=['POST', 'GET'])
 def collect_dinimon():
+    main_dini = Captured_Dinimon.query.get(session["main_dini"])
     enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
     enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
     discovered_dinimon = Dinidex.query.filter(Dinidex.player_id == session["player_id"]).all()
@@ -282,6 +285,7 @@ def collect_dinimon():
     print('Discovered:', is_discovered)
     width = enemy_dini_dex.width * 4
     new_dini = add_dini_to_player(enemy_dini, enemy_dini_dex, session["player_id"])
+    catch_xp(session["player_id"], enemy_dini_dex, main_dini, is_discovered)
     return render_template('collect.html', dinimon=enemy_dini_dex, width=width, new_dini=new_dini, is_discovered=is_discovered)    
 
 
@@ -375,7 +379,9 @@ def box_details(captured_dinimon_id):
     move3 = Move.query.get(dinimon.move3)
     move4 = Move.query.get(dinimon.move4)
     health = get_dini_health(dinimon)
-    return render_template('box_details.html', dinimon=dinimon, type1=type1, type2=type2, dinimon_dex=dinimon_dex, move1=move1, move2=move2, move3=move3, move4=move4, move1_type=Type.query.get(move1.type_id), move2_type=Type.query.get(move2.type_id), move3_type=Type.query.get(move3.type_id), move4_type=Type.query.get(move4.type_id), health=health)
+    energy = get_dini_energy(dinimon)
+    xp = get_dini_xp(dinimon)
+    return render_template('box_details.html', dinimon=dinimon, type1=type1, type2=type2, dinimon_dex=dinimon_dex, move1=move1, move2=move2, move3=move3, move4=move4, move1_type=Type.query.get(move1.type_id), move2_type=Type.query.get(move2.type_id), move3_type=Type.query.get(move3.type_id), move4_type=Type.query.get(move4.type_id), health=health, energy=energy, xp=xp)
 
 
 @app.route('/remove_from_party/<captured_dinimon_id>', methods=['POST', 'GET'])
