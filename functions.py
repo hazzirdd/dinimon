@@ -200,7 +200,7 @@ def get_dini_energy(dinimon):
     return dini_energy
 
 
-def run_attack_on_enemy(move_id, enemy_dinimon_id):
+def run_attack_on_enemy(move_id, enemy_dinimon_id, dinimon):
     print('ATTACK ON ENEMY::::________________________________________________________________')
     move = Move.query.get(move_id)
     enemy = Enemy_Dinimon.query.get(enemy_dinimon_id)
@@ -211,6 +211,8 @@ def run_attack_on_enemy(move_id, enemy_dinimon_id):
     move_super_effectives = move_type.super_effective.split('/')
     move_not_effectives = move_type.not_effective.split('/')
     enemy_types = [Type.query.get(enemy.type1), Type.query.get(enemy.type2)]
+
+    dinimon.energy -= int(move.energy_cost)
 
     for enemy_type in enemy_types:
         enemy_vulnerabilities = enemy_type.vulnerable_to.split('/')

@@ -431,7 +431,7 @@ def create_dinimon():
 
     dinimon_37 = Dinimon(number=37, name='Salaburn', width=50, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Salaburn.png', type1=9, type2=14, line='Salaburn', can_evolve=True, rarity=15, biomes='Grasslands/Mesa/Cave/Volcano', health_range='15-30', energy_range='10-15', possible_moves='Burning Attack/', catchability=1)
 
-    dinimon_38 = Dinimon(number=38, name='Baskisinge', width=80, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Baskisinge.png', type1=9, type2=14, line='Salaburn', can_evolve=True, rarity=5, biomes='Grasslands/Mesa/Cave/Volcano', health_range='30-95', energy_range='10-15', possible_moves='Burning Attack/', catchability=4)
+    dinimon_38 = Dinimon(number=38, name='Baskisinge', width=62, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Baskisinge.png', type1=9, type2=14, line='Salaburn', can_evolve=True, rarity=5, biomes='Grasslands/Mesa/Cave/Volcano', health_range='30-95', energy_range='10-15', possible_moves='Burning Attack/', catchability=4)
 
     dinimon_39 = Dinimon(number=39, name='Fareodo', width=100, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Flareodo.png', type1=9, type2=14, line='Salaburn', can_evolve=False, rarity=2, biomes='Grasslands/Mesa/Cave/Volcano', health_range='95-160', energy_range='10-15', possible_moves='Burning Attack/', catchability=6)
 

@@ -14,6 +14,7 @@ def start_session():
     players_dinimon = Captured_Dinimon.query.all()
     for tamed_dini in players_dinimon:
         tamed_dini.health = tamed_dini.max_health
+        tamed_dini.energy = tamed_dini.max_energy
         tamed_dini.in_party = False
         if tamed_dini.nickname == 'Rexy' or tamed_dini.nickname == 'Goobs' or tamed_dini.nickname == 'Slabcanic':
             tamed_dini.in_party = True
@@ -159,7 +160,7 @@ def attack_enemy():
     dinimon = Captured_Dinimon.query.get(session["main_dini"])
     move = Move.query.get(move_id)
     enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
-    run_attack_on_enemy(move_id, session["enemy_dini"])
+    run_attack_on_enemy(move_id, session["enemy_dini"], dinimon)
     health_status = health_check(dinimon, enemy_dini)
     enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
 

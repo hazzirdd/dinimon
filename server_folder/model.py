@@ -1,11 +1,11 @@
 ## RUN THE APP
-# from server_folder import db
+from server_folder import db
 
 ## SEED DATABASE
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask
-app = Flask(__name__)
-db = SQLAlchemy()
+# from flask_sqlalchemy import SQLAlchemy
+# from flask import Flask
+# app = Flask(__name__)
+# db = SQLAlchemy()
 
 class Player(db.Model):
     __tablename__ = 'players'
@@ -61,7 +61,7 @@ class Move(db.Model):
     move_id = db.Column(db.Integer, primary_key=True)
     move = db.Column(db.String(255))
     type_id = db.Column(db.Integer, db.ForeignKey("types.type_id"))
-    energy_cost = db.Column(db.String(255))
+    energy_cost = db.Column(db.Integer)
     damage = db.Column(db.String(255))
 
 

@@ -117,6 +117,7 @@ body {
     position: absolute;
     font-size: 14px;
     top: -17px;
+    width: 60px;
 }
 
 .battle_name_title {

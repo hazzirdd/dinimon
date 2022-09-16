@@ -65,10 +65,17 @@
             </div>
             <div class="battle_bottom_banner" style="background-color: brown;">
                 {% for move in main_dini_moves %}
+                {% if move.energy_cost <= main_dini.energy %}
                 <form action="/attack_enemy" method="POST">
                     <input type="hidden" name="move" value="{{ move.move_id }}">
                     <input class="battle_banner_button" type="submit" value="{{ move.move }} ({{ move.energy_cost }}e)">
                 </form>
+                {% else %}
+                <form>
+                    <input type="hidden" name="move" value="{{ move.move_id }}">
+                    <input class="battle_banner_button" type="submit" value="{{ move.move }} ({{ move.energy_cost }}e)" style="background-color:grey;cursor:not-allowed;">
+                </form>
+                {% endif %}
                 {% endfor %}
                 <a href="/open_inventory" class="battle_banner_button">Inventory</a>
                 <a href="/switch_dinimon" class="battle_banner_button">Switch Dinimon</a>
