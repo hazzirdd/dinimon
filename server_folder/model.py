@@ -77,6 +77,7 @@ class Dinimon(db.Model):
     type2 = db.Column(db.Integer, db.ForeignKey("types.type_id"))
     line = db.Column(db.String(255), nullable=False)
     can_evolve = db.Column(db.Boolean)
+    level_to_evolve = db.Column(db.Integer)
     rarity = db.Column(db.Integer)
     biomes = db.Column(db.String(255))
     health_range = db.Column(db.String(255), nullable=False)
@@ -104,6 +105,7 @@ class Captured_Dinimon(db.Model):
     max_experience = db.Column(db.Integer)
     level = db.Column(db.Integer)
     level_to_evolve = db.Column(db.Integer)
+    evo_ready = db.Column(db.Boolean)
     in_party = db.Column(db.Boolean)
     image = db.Column(db.String(255))
 

@@ -318,6 +318,8 @@ def collect_wild_battle_xp(player_id, enemy_dini, main_dini):
     main_xp = enemy_dini.catchability * 10
     party_xp = enemy_dini.catchability * 5
     main_dini.experience += main_xp
+    level_up_check(main_dini)
+
     party = Captured_Dinimon.query.filter(
         Captured_Dinimon.in_party == True,
         Captured_Dinimon.player_id == player_id,
@@ -325,8 +327,11 @@ def collect_wild_battle_xp(player_id, enemy_dini, main_dini):
     )
     for dinimon in party:
         dinimon.experience += party_xp
+        level_up_check(dinimon)
+
     print(f"{main_xp} earned!")
     db.session.commit()
+
 
 def catch_xp(player_id, enemy_dini, main_dini, is_discovered):
     if is_discovered == True:
@@ -336,6 +341,7 @@ def catch_xp(player_id, enemy_dini, main_dini, is_discovered):
         main_xp = enemy_dini.catchability * 8
         party_xp = enemy_dini.catchability * 4
     main_dini.experience += main_xp
+    level_up_check(main_dini)
     party = Captured_Dinimon.query.filter(
         Captured_Dinimon.in_party == True,
         Captured_Dinimon.player_id == player_id,
@@ -344,4 +350,44 @@ def catch_xp(player_id, enemy_dini, main_dini, is_discovered):
     print(f"{main_xp} earned!")
     for dinimon in party:
         dinimon.experience += party_xp
+        level_up_check(dinimon)
     db.session.commit()
+
+
+def level_up_check(dinimon):
+    if dinimon.experience >= dinimon.max_experience:
+        new_max_experience = dinimon.max_experience
+        new_max_experience *= 1.15
+
+        remainder = dinimon.experience - dinimon.max_experience
+
+        dinimon.level += 1
+        dinimon.experience = remainder
+        dinimon.max_experience = new_max_experience
+
+        dinimon.max_health += 10
+        dinimon.health = dinimon.max_health
+
+        # evolution_check(dinimon)
+
+        db.session.commit()
+
+
+def evolution_check(player_id):
+
+    all_dinimon = Captured_Dinimon.query.filter(
+        Captured_Dinimon.player_id == player_id,
+        Captured_Dinimon.in_party == True
+        )
+    
+    for dinimon in all_dinimon:
+        dini_dex = Dinimon.query.get(dinimon.dinimon_id)
+        if dinimon.level >= dini_dex.level_to_evolve and dini_dex.can_evolve == True:
+            dinimon.evo_ready = True
+            db.session.commit()
+            new_dini_id = dini_dex.number + 1
+            new_dini = Dinimon.query.get(new_dini_id)
+            return dini_dex, dinimon, new_dini, True
+
+    # AS THE EVOLUTION CALCULATES BY NEXT DINI NUMBER, I"LL NEED TO ADD SPECIFIC CONDITIONALS FOR BRANCHED EVOLUTIONS OR SPECIFIC EVO REQUIRMENTS LATER
+    return None, None, None, False

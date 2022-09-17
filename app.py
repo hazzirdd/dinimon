@@ -2,7 +2,7 @@ from re import T
 from server_folder import app, db
 from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory, Dinidex, Type
 
-from functions import create_enemy_dinimon, health_check, manage_party, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack, get_dini_energy, get_dini_xp, catch_xp, collect_wild_battle_xp
+from functions import create_enemy_dinimon, health_check, manage_party, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack, get_dini_energy, get_dini_xp, catch_xp, collect_wild_battle_xp, evolution_check
 from catching import add_dini_to_player, catch_dinimon
 
 from flask import redirect, render_template, request, url_for, session, flash
@@ -96,6 +96,17 @@ def homepage():
         enemy_dini_health = 'none'
         enemy_dini_energy = 'none'
         enemy_dini_dex = 'none'
+
+    if "main_dini" not in session and "wild_battle" not in session:
+        print('CHECKING FOR EVOLUTION!!!.........')
+        evolving_dini_dex, evolving_dini, new_dini, evolve_status = evolution_check(session["player_id"])
+        if evolve_status == True:
+            all_dex = Dinidex.query.filter(Dinidex.player_id == session["player_id"])
+            dinidex = []
+            for dex in all_dex:
+                dinidex.append(dex.dinimon_id)
+
+            return render_template('evolve.html', dinimon=evolving_dini, dini_dex=evolving_dini_dex, new_dini=new_dini, dinidex=dinidex)
 
     return render_template('homepage.html', left=session["left"], top=session["top"],arrow_up_left=session["arrow_up_left"], arrow_up_top=session["arrow_up_top"], area=area, events=events, wild_battle=wild_battle, party=party, main_dini=main_dini, main_dini_moves=main_dini_moves, enemy_dini_moves=enemy_dini_moves, main_dini_health=main_dini_health, enemy_dini_health=enemy_dini_health, main_dini_energy=main_dini_energy, enemy_dini_energy=enemy_dini_energy, enemy_dini_dex=enemy_dini_dex, message=session["message"], enemy_dini=enemy_dini)
 
