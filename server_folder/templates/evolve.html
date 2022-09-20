@@ -2,12 +2,18 @@
 {% block content %}
 <div class="screen" style="background-color: #b9d15c;">
 
+    <form action="/finish_evolve" method="POST">
+        <input type="hidden" name="evolving_dini_id" value="{{ dinimon.captured_dinimon_id }}">
+        <input type="hidden" name="new_dini_id" value="{{ new_dini.dinimon_id }}">
+        <input type="submit" value="Ok" class="inventory_back_button">
+    </form>
+
     <p style="top:1px;left:248px;position:absolute;font-size: 25px;">Whaaaaat??? {{ dinimon.nickname }} is evolving!!!</p>
 
     <img style="position:absolute;left:371px;top:257px;width: 107px;" src="https://entreresource.com/wp-content/uploads/2021/05/18.png">
 
     <div id="cf2" class="shadow">
-        <img style="top:94px;left:0px;position:absolute" src="{{ dinimon.image }}" >
+        <img style="top:94px;left:0px;position:absolute;width: {{ dini_dex.width * 5 }}px" src="{{ dinimon.image }}" >
         <img style="top:94px;right:0px;position:absolute;width: {{ new_dini.width * 5 }}px;" src="{{ new_dini.image }}" >
     </div>
 

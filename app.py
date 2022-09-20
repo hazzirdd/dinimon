@@ -2,7 +2,7 @@ from re import T
 from server_folder import app, db
 from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory, Dinidex, Type
 
-from functions import create_enemy_dinimon, health_check, manage_party, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack, get_dini_energy, get_dini_xp, catch_xp, collect_wild_battle_xp, evolution_check
+from functions import create_enemy_dinimon, evolve, health_check, manage_party, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack, get_dini_energy, get_dini_xp, catch_xp, collect_wild_battle_xp, evolution_check, evolve
 from catching import add_dini_to_player, catch_dinimon
 
 from flask import redirect, render_template, request, url_for, session, flash
@@ -407,6 +407,18 @@ def add_to_party(captured_dinimon_id):
     dinimon = Captured_Dinimon.query.get(captured_dinimon_id)
     manage_party(dinimon, 'add', session['player_id'])
     return redirect(url_for('open_box'))
+
+
+@app.route('/finish_evolve', methods=['POST', 'GET'])
+def finish_evolve():
+    evolving_dini_id = request.form['evolving_dini_id']
+    new_dini_id = request.form['new_dini_id']
+    evolving_dini = Captured_Dinimon.query.get(evolving_dini_id)
+    new_dini = Dinimon.query.get(new_dini_id)
+    evolve(evolving_dini, new_dini, session["player_id"])
+    return redirect(url_for('homepage'))
+
+
 
 
 if __name__ == '__main__':

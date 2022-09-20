@@ -2,7 +2,7 @@ from audioop import add
 import random
 
 from server_folder import db
-from server_folder.model import Event, Area, Dinimon, Type, Captured_Dinimon, Move, Enemy_Dinimon
+from server_folder.model import Event, Area, Dinimon, Type, Captured_Dinimon, Move, Enemy_Dinimon, Dinidex
 
 def move_sprite(direction, left, top, sprite_xy):
     if direction == 'up':
@@ -387,7 +387,22 @@ def evolution_check(player_id):
             db.session.commit()
             new_dini_id = dini_dex.number + 1
             new_dini = Dinimon.query.get(new_dini_id)
+
             return dini_dex, dinimon, new_dini, True
 
     # AS THE EVOLUTION CALCULATES BY NEXT DINI NUMBER, I"LL NEED TO ADD SPECIFIC CONDITIONALS FOR BRANCHED EVOLUTIONS OR SPECIFIC EVO REQUIRMENTS LATER
     return None, None, None, False
+
+
+def evolve(dinimon, new_dini, player_id):
+    dinimon.nickname = new_dini.name
+    dinimon.number = new_dini.number
+    dinimon.dinimon_id = new_dini.dinimon_id
+    dinimon.level_to_evolve = new_dini.level_to_evolve
+    dinimon.image = new_dini.image
+    dinimon.evo_ready = False
+
+    entry = Dinidex(player_id=player_id, dinimon_id=dinimon.dinimon_id)
+
+    db.session.add(entry)
+    db.session.commit()
