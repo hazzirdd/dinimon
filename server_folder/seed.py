@@ -638,15 +638,15 @@ def create_captured_dinimon():
     print("Captured_Dinimon")
     Captured_Dinimon.query.delete()
 
-    dinimon1 = Captured_Dinimon(player_id=1, dinimon_id=79, nickname='Goobs', move1=12, move2=8, move3=14, move4=14, energy=15, max_energy=15, health=50, max_health=50, experience=85, max_experience=87, level=5, level_to_evolve=6, evo_ready=False, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Goobanut.png')
+    dinimon1 = Captured_Dinimon(player_id=1, dinimon_id=79, nickname='Goobs', move1=12, move2=8, move3=14, move4=14, energy=15, max_energy=15, health=50, max_health=50, experience=1, max_experience=87, level=1, level_to_evolve=6, evo_ready=False, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Goobanut.png')
 
-    dinimon2 = Captured_Dinimon(player_id=1, dinimon_id=78, nickname='Rexy', move1=7, move2=10, move3=11, move4=14, energy=15, max_energy=15, health=15, max_health=20, experience=204, max_experience=600, level=5, level_to_evolve=9999, evo_ready=False, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tetanusaurust.png')
+    # dinimon2 = Captured_Dinimon(player_id=1, dinimon_id=78, nickname='Rexy', move1=7, move2=10, move3=11, move4=14, energy=15, max_energy=15, health=15, max_health=20, experience=204, max_experience=600, level=5, level_to_evolve=9999, evo_ready=False, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Tetanusaurust.png')
 
-    dinimon3 = Captured_Dinimon(player_id=1, dinimon_id=56, nickname='Slabcanic', move1=9, move2=7, move3=1, move4=13, energy=15, max_energy=15, health=60, max_health=60, experience=1000, max_experience=2000, level=19, level_to_evolve=9999, evo_ready=False, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Slabcanic.png')
+    # dinimon3 = Captured_Dinimon(player_id=1, dinimon_id=56, nickname='Slabcanic', move1=9, move2=7, move3=1, move4=13, energy=15, max_energy=15, health=60, max_health=60, experience=1000, max_experience=2000, level=19, level_to_evolve=9999, evo_ready=False, in_party=True, image='https://storage.cloud.google.com/property-runner/Dinimon/Creatures%20/Slabcanic.png')
 
     db.session.add(dinimon1)
-    db.session.add(dinimon2)
-    db.session.add(dinimon3)
+    # db.session.add(dinimon2)
+    # db.session.add(dinimon3)
 
 
 def create_dinidex():

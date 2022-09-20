@@ -6,8 +6,8 @@
     {% if dead_enemy != 'none' %}
     <img class="dead_enemy_image" src="{{ dead_enemy.image }}">
     <p class="dead_enemy_text">{{ dead_enemy.name }} has been murdered</p>
-    <form action="/end_battle" method="POST">
-        <input type="submit" value="What have I done?" class="back_home_button">
+    <form action="/xp_aftermath" method="POST">
+        <input type="submit" value="Collect xp" class="back_home_button">
     </form>
 
     {% elif dead_main_dini != 'none' %}

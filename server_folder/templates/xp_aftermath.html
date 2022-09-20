@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dex_screen" style="background-color: #7aadba;">
+    <div class="xp_aftermath_container" style="display:flex;flex-direction: column;">
+        {% for dinimon in xp_aftermath %}
+        <img src="{{ xp_aftermath[dinimon]['image'] }}" style="width:70px;">
+        <div style="border:2px solid black;width:150px;height:8px;">
+            <div style="background-color:purple;height:8px;width: {{ xp_aftermath[dinimon]['previous_width'] }}%;z-index: 1;position: relative;"></div>
+            <div style="background-color:rgb(45, 128, 0);height:8px;width:{{ xp_aftermath[dinimon]['new_width'] }}%;top:-8px;position:relative;"></div>
+        </div>
+        <p>+ {{ xp_aftermath[dinimon]['xp'] }}</p>
+        {% endfor %}
+    </div>
+
+    <a href="/end_battle" class="inventory_back_button" style="
+    right: 237px;
+    top: 132px;
+    padding: 24px;">Continue</a>
+
+</div>
+{% endblock %}

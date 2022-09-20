@@ -2,7 +2,7 @@ from re import T
 from server_folder import app, db
 from server_folder.model import Area, Captured_Dinimon, Enemy_Dinimon, Event, Dinimon, Move, Item, Inventory, Dinidex, Type
 
-from functions import create_enemy_dinimon, evolve, health_check, manage_party, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack, get_dini_energy, get_dini_xp, catch_xp, collect_wild_battle_xp, evolution_check, evolve
+from functions import create_enemy_dinimon, evolve, get_dini_xp_aftermath, health_check, manage_party, move_sprite, nickname_dinimon, spawn_events, event_check, spawn_dinimon, get_party, setup_dini_moves, get_dini_health, run_attack_on_enemy, run_enemy_attack, get_dini_energy, get_dini_xp, catch_xp, collect_wild_battle_xp, evolution_check, evolve
 from catching import add_dini_to_player, catch_dinimon
 
 from flask import redirect, render_template, request, url_for, session, flash
@@ -179,13 +179,24 @@ def attack_enemy():
     if health_status == 'enemy_dini_dead':
         session["message"] = f'{enemy_dini_dex.name} has been murdered!'
         session["battle_end"] = True
-        collect_wild_battle_xp(session["player_id"], enemy_dini_dex, main_dini)
         return render_template('end_battle.html', dead_enemy=enemy_dini_dex, dead_main_dini='none')
 
     session["enemy_turn"] = True
     session['message'] = f'{dinimon.nickname} used {move.move}... and then '
 
     return redirect(url_for('homepage'))
+
+
+@app.route('/xp_aftermath', methods=['GET', 'POST'])
+def xp_aftermath():
+    enemy_dini = Enemy_Dinimon.query.get(session["enemy_dini"])
+    enemy_dini_dex = Dinimon.query.get(enemy_dini.dinimon_id)
+    main_dini = Captured_Dinimon.query.get(session["main_dini"])
+
+    xp_aftermath = collect_wild_battle_xp(session["player_id"], enemy_dini_dex, main_dini)
+    xp_aftermath = get_dini_xp_aftermath(xp_aftermath)
+
+    return render_template('xp_aftermath.html', xp_aftermath=xp_aftermath)
 
 
 @app.route('/end_battle', methods=['POST', 'GET'])
@@ -313,7 +324,7 @@ def name_new_dinimon():
     nickname_dinimon(nickname, captured_dini_id)
 
     if box == 'none':
-        return redirect(url_for('end_battle'))
+        return redirect(url_for('xp_aftermath'))
     else:
         return redirect(url_for('open_box'))
 

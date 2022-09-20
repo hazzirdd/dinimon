@@ -315,9 +315,18 @@ def manage_party(dinimon, add_remove, player_id):
 
 
 def collect_wild_battle_xp(player_id, enemy_dini, main_dini):
+    xp_aftermath = {}
     main_xp = enemy_dini.catchability * 10
     party_xp = enemy_dini.catchability * 5
     main_dini.experience += main_xp
+    xp_aftermath[main_dini.captured_dinimon_id] = {
+        "xp": main_xp,
+        "image": main_dini.image,
+        "name": main_dini.nickname,
+        "max_xp": main_dini.max_experience,
+        "previous_xp": main_dini.experience,
+        "level": main_dini.level
+    }
     level_up_check(main_dini)
 
     party = Captured_Dinimon.query.filter(
@@ -326,11 +335,47 @@ def collect_wild_battle_xp(player_id, enemy_dini, main_dini):
         Captured_Dinimon.captured_dinimon_id != main_dini.captured_dinimon_id
     )
     for dinimon in party:
+        xp_aftermath[dinimon.captured_dinimon_id] = {
+            "xp": party_xp,
+            "image": dinimon.image,
+            "name": dinimon.nickname,
+            "max_xp": dinimon.max_experience,
+            "previous_xp": dinimon.experience,
+            "level": dinimon.level,
+            "previous_width":0,
+            "new_width":0
+        }
         dinimon.experience += party_xp
         level_up_check(dinimon)
 
     print(f"{main_xp} earned!")
     db.session.commit()
+    return xp_aftermath
+
+
+
+def get_dini_xp_aftermath(xp_aftermath):
+    xp_widths = {}
+    for key, value in xp_aftermath.items():
+        print(xp_aftermath[key]['name'])
+        decimal_previous_xp = xp_aftermath[key]['previous_xp']/xp_aftermath[key]['max_xp']
+        previous_width = decimal_previous_xp*100
+
+        total_xp = xp_aftermath[key]['xp'] + xp_aftermath[key]['previous_xp']
+        decimal_new_xp = total_xp/xp_aftermath[key]['max_xp']
+        new_width = decimal_new_xp*100
+
+        xp_aftermath[key]['previous_width'] = previous_width
+        xp_aftermath[key]['new_width'] = new_width
+
+        xp_widths[key] = {
+            "previous_width": previous_width,
+            "new_width": new_width,
+            "name": xp_aftermath[key]['name']
+        }
+
+    return xp_aftermath
+
 
 
 def catch_xp(player_id, enemy_dini, main_dini, is_discovered):
